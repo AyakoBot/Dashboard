@@ -49,3 +49,19 @@ body,
 	min-height: 100lvh;
 	min-width: 100lvw;
 }
+
+
+:root {
+ overflow-y: hidden;
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 2px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #bdc4de;
+	border-radius: 10px;
+}

@@ -1,13 +1,12 @@
+import { PUBLIC_API } from '$env/static/public';
 import type { LayoutServerLoad } from './$types';
-export const load: LayoutServerLoad = async () => {
-	return {
-		guilds: [
-			{
-				name: 'Animekos | Anime ❀ Social ❀ Ayako',
-				icon:
-					'https://cdn.discordapp.com/icons/298954459172700181/a_2a945cea66c917f525df699e08f315e6.gif',
-				id: '298954459172700181',
-			},
-		],
-	};
+
+import type { Result as GETGuilds } from '@ayako/server/src/routes/v1/@me/guilds/+server.js';
+
+export const load: LayoutServerLoad = async (req) => {
+	const guildsRes = await fetch(`${PUBLIC_API}/@me/guilds`, {
+		headers: { Authorization: `Bearer ${req.cookies.get('discord-token')}` },
+	}).then((r) => (r.ok ? (r.json() as Promise<GETGuilds>) : []));
+
+	return { guilds: guildsRes };
 };
