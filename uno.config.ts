@@ -4,6 +4,7 @@ import {
 	presetIcons,
 	presetTypography,
 	presetUno,
+	presetWebFonts,
 	transformerDirectives,
 	transformerVariantGroup,
 } from 'unocss';
@@ -19,9 +20,20 @@ export default defineConfig({
 			'main-darker': '#1e1f22',
 			'main-dark': '#2b2d31',
 			main: '#313338',
+			'main-light': '#424a8c',
 
 			'main-text': '#ffffff',
 			'alt-text': '#bdc4de',
+
+			primary: '#6066f0',
+			secondary: '#4f5058',
+			danger: '#ba3438',
+			success: '#508048',
+
+			'primary-hover': '#4d53c3',
+			'secondary-hover': '#6e6f78',
+			'danger-hover': '#892625',
+			'success-hover': '#3d6336',
 		},
 	},
 	rules: [
@@ -33,6 +45,13 @@ export default defineConfig({
 	],
 	shortcuts: {
 		mention: 'bg-[rgba(88,101,242,0.3)] px-1 rounded-md',
+		'btn-base': 'min-w-15 duration-100 transition-all ease-in-out text-white rounded-md p-2 px-4',
+		'btn-primary': 'btn-base bg-primary hover:bg-primary-hover',
+		'btn-secondary': 'btn-base bg-secondary hover:bg-secondary-hover',
+		'btn-danger': 'btn-base bg-danger hover:bg-danger-hover',
+		'btn-success': 'btn-base bg-success hover:bg-success-hover',
+		'btn-link':
+			'btn-base bg-secondary hover:bg-secondary-hover flex flex-row justify-center items-center after:bg-[url(/svg/external.svg)] after:content-empty after:h-4 after:w-4 after:m-auto after:ml-1',
 	},
 	transformers: [transformerDirectives(), transformerVariantGroup()],
 	content: {
@@ -52,5 +71,18 @@ export default defineConfig({
 		presetUno(),
 		presetIcons({ scale: 1.2 }),
 		presetTypography(),
+		presetWebFonts({
+			fonts: {
+				poppins: {
+					name: 'Poppins',
+					weights: ['400', '500', '600', '700', '800'],
+					provider: 'google',
+				},
+				serif: 'DM Serif Display',
+				mono: 'DM Mono',
+				clock: 'Bungee Outline',
+				card: 'Mina',
+			},
+		}),
 	],
 });

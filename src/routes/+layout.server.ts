@@ -8,5 +8,19 @@ export const load: LayoutServerLoad = async (req) => {
 		headers: { Authorization: `Bearer ${req.cookies.get('discord-token')}` },
 	}).then((r) => (r.ok ? (r.json() as Promise<GETGuilds>) : []));
 
-	return { guilds: guildsRes };
+	const id = req.cookies.get('discord-id');
+	const username = req.cookies.get('discord-username');
+	const avatar = req.cookies.get('discord-avatar');
+	const token = req.cookies.get('discord-token');
+
+	return {
+		guilds: guildsRes,
+		user: token
+			? {
+					username,
+					avatar,
+					id,
+				}
+			: null,
+	};
 };
