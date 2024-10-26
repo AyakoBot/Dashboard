@@ -2,62 +2,113 @@
 	import SideBarIcon from '$lib/components/layout/SideBarIcon.svelte';
 	import { PermissionFlagsBits } from 'discord-api-types/v10';
 	import type { LayoutData } from '../../../routes/$types';
+	import { afterNavigate, beforeNavigate } from '$app/navigation';
+	import { page } from '$app/stores';
 
 	const { data }: { data: LayoutData } = $props();
+	const easing = 'cubic-bezier(.35,1.58,1,.83)';
+	const offset = 26;
 
+	let guilds: { id: string; y: number }[] = [];
 	let nameContainer: HTMLDivElement | null = $state(null);
-	let dotContainer: { div: HTMLDivElement | null; firstAppear: boolean } = $state({
-		div: null,
+	let dotContainer: {
+		point: HTMLDivElement | null;
+		bar: HTMLDivElement | null;
+		firstAppear: boolean;
+	} = $state({
+		point: null,
 		firstAppear: true,
+		bar: null,
 	});
 	let name = $state<string | null>(null);
 	let profile: HTMLDivElement | null = $state(null);
 	let mouseY = $state(0);
+	let guildBarSection: HTMLElement | null = $state(null);
+
+	const scroll = () => {
+		updateDotPos();
+		barScroll();
+	};
+
+	const barScroll = () => {
+		if (!guildBarSection) return;
+		if (!dotContainer.bar) return;
+
+		const oldPos = guilds.find(
+			(g) => g.id === ($page.url.pathname.startsWith('/@me') ? '@me' : $page.params.guildId),
+		);
+
+		if (!oldPos) return;
+
+		const newPos = { y: oldPos.y - guildBarSection.scrollTop };
+		dotContainer.bar.style.top = `${newPos.y + offset}px`;
+	};
 
 	const updateDotPos = () => {
-		console.log(mouseY);
-		if (!dotContainer.div) return;
+		if (!dotContainer.point) return;
 
-		dotContainer.div.style.top = `${dotContainer.div.getBoundingClientRect().top}px`;
+		dotContainer.point.style.top = `${dotContainer.point.getBoundingClientRect().top}px`;
 
-		dotContainer.div.animate([{ top: dotContainer.div.style.top }, { top: `${mouseY + 26}px` }], {
-			duration: 300,
-			easing: 'cubic-bezier(0,1,1,1)',
-			fill: 'forwards',
-		});
+		dotContainer.point.animate(
+			[{ top: dotContainer.point.style.top }, { top: `${mouseY + offset}px` }],
+			{ duration: 200, easing, fill: 'forwards' },
+		);
+	};
+
+	const updateBarPos = (oldPos: number, newPos: number, initialAnimation: boolean = false) => {
+		if (!dotContainer.bar) return;
+		if (!guildBarSection) return;
+		if (initialAnimation) oldPos = newPos;
+
+		dotContainer.bar.style.top = `${dotContainer.bar.getBoundingClientRect().top}px`;
+
+		dotContainer.bar
+			.animate(
+				[
+					{ top: dotContainer.bar.style.top, left: initialAnimation ? '-8px' : undefined },
+					{
+						top: `${newPos + offset - guildBarSection.scrollTop}px`,
+						left: initialAnimation ? '-4px' : undefined,
+					},
+				],
+				{ duration: 200, easing },
+			)
+			.finished.then(() => {
+				if (!dotContainer.bar) return;
+				if (!guildBarSection) return;
+
+				dotContainer.bar.style.top = `${newPos + offset - guildBarSection.scrollTop}px`;
+				dotContainer.bar.style.left = '-4px';
+			});
 	};
 
 	const showDot = (y: number) => {
-		if (!dotContainer.div) return;
+		if (!dotContainer.point) return;
 
-		if (dotContainer.firstAppear) dotContainer.div.style.top = `${y + 26}px`;
+		if (dotContainer.firstAppear) dotContainer.point.style.top = `${y + offset}px`;
 
-		dotContainer.div.animate(
+		dotContainer.point.animate(
 			[
 				{
-					top: dotContainer.div.getBoundingClientRect().top,
+					top: dotContainer.point.getBoundingClientRect().top,
 					left: dotContainer.firstAppear ? '-8px' : '-4px',
 				},
-				{ top: `${y + 26}px`, left: '-4px' },
+				{ top: `${y + offset}px`, left: '-4px' },
 			],
-			{
-				duration: 300,
-				easing: 'cubic-bezier(0,1,1,1)',
-				fill: 'forwards',
-			},
+			{ duration: 200, easing, fill: 'forwards' },
 		);
 
-		dotContainer.div.style.top = `${dotContainer.div.getBoundingClientRect().top}px`;
+		dotContainer.point.style.top = `${dotContainer.point.getBoundingClientRect().top}px`;
 		dotContainer.firstAppear = false;
 	};
 
 	const hideDot = () => {
-		if (!dotContainer.div) return;
+		if (!dotContainer.point) return;
 		dotContainer.firstAppear = true;
 
-		dotContainer.div.animate([{ left: '-4px' }, { left: '-8px' }], {
-			duration: 300,
-			easing: 'cubic-bezier(0,1,1,1)',
+		dotContainer.point.animate([{ left: '-4px' }, { left: '-8px' }], {
+			duration: 200,
+			easing,
 			fill: 'forwards',
 		});
 	};
@@ -67,7 +118,7 @@
 		if (!nameContainer) return;
 
 		name = e.name;
-		nameContainer.style.top = `${e.y + 28}px`;
+		nameContainer.style.top = `${e.y + offset}px`;
 	};
 
 	const hideName = (e: { name: string }) => {
@@ -78,16 +129,47 @@
 
 	const canManage = (permissions: bigint) =>
 		(permissions & PermissionFlagsBits.ManageGuild) === PermissionFlagsBits.ManageGuild;
+
+	const pushGuilds = (e: { id: string; y: number }) => {
+		guilds = guilds.filter((g) => g.id !== e.id);
+		guilds.push(e);
+	};
+
+	$effect(() => {
+		if (!dotContainer.bar) return;
+
+		const newPos = guilds.find(
+			(g) => g.id === ($page.route.id === '/@me' ? '@me' : $page.params.guildId),
+		);
+
+		if (!newPos) return;
+
+		updateBarPos(0, newPos.y, true);
+	});
+
+	afterNavigate((e) => {
+		const oldPos = guilds.find(
+			(g) => g.id === (e.from?.route.id === '/@me' ? '@me' : e.from?.params?.guildId),
+		);
+		const newPos = guilds.find(
+			(g) => g.id === (e.to?.route.id === '/@me' ? '@me' : e.to?.params?.guildId),
+		);
+
+		if (!oldPos) return;
+		if (!newPos) return;
+
+		updateBarPos(oldPos.y, newPos.y);
+	});
 </script>
 
-<svelte:body onmousemove={(e) => (mouseY = e.clientY - 28)} />
+<svelte:body onmousemove={(e) => (mouseY = e.clientY - offset)} />
 
 <section
-	id="guild-bar"
 	class="bg-main-darker flex flex-col justify-start items-center gap-2 p-2 h-100lvh box-shadow-main of-y-scroll of-auto hide-scrollbar"
 	onmouseleave={() => hideDot()}
-	onscroll={(e) => updateDotPos()}
+	onscroll={() => scroll()}
 	role="navigation"
+	bind:this={guildBarSection}
 >
 	<div
 		class="max-w-15 fixed z-5
@@ -105,6 +187,7 @@
 			id="@me"
 			on:hover={(e) => showName(e.detail)}
 			on:unhover={(e) => hideName(e.detail)}
+			on:imAt={(e) => pushGuilds({ id: '@me', y: e.detail })}
 		/>
 	</div>
 
@@ -122,6 +205,7 @@
 				name={guild.name}
 				on:hover={(e) => showName(e.detail)}
 				on:unhover={(e) => hideName(e.detail)}
+				on:imAt={(e) => pushGuilds({ id: guild.id, y: e.detail })}
 			/>
 		{/each}
 
@@ -172,6 +256,12 @@
 </div>
 
 <div
-	class="absolute w-2 h-2 bg-main-text/80 top-0 -left-2 top-0 content-empty rounded-full z-5"
-	bind:this={dotContainer.div}
+	class="absolute w-2 h-8 bg-main-text/80 -left-2 top-0 content-empty rounded-full z-5 -translate-y-3"
+	bind:this={dotContainer.point}
+></div>
+
+<div
+	class="absolute w-2 h-12 bg-main-text -left-2 top-0 content-empty rounded-full z-5 -translate-y-5"
+	id="bar"
+	bind:this={dotContainer.bar}
 ></div>

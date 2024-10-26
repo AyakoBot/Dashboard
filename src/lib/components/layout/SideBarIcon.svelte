@@ -20,17 +20,21 @@
 
 	let self: HTMLElement | null = null;
 	let img: HTMLImageElement | null = $state(null);
-	let isHovered = $state<boolean>(false);
 	let active = $state(false);
 
 	const dispatch = createEventDispatcher<{
 		hover: { y: number; name: string };
 		unhover: { name: string };
+		imAt: number;
 	}>();
+
+	$effect(() => {
+		dispatch('imAt', self?.getBoundingClientRect().y || 0);
+	});
 
 	const hovered = (state: boolean) => {
 		if (!self) return;
-		isHovered = state;
+
 		if (src?.startsWith('a_') && img && state && id !== 'favicon') {
 			img.src = `https://cdn.discordapp.com/icons/${id}/${src}.gif?size=64&ver=${Date.now()}`;
 		} else if (!state && img && src && !src.includes('favicon')) {
@@ -47,8 +51,6 @@
 		active =
 			$page.params.guildId === id || (String($page.url.pathname).startsWith('/@me') && id === '@me');
 	});
-
-	//{active ? 'after:h-75% after:-left-3' : 'after:h-33% after:-left-4'}
 </script>
 
 <a
