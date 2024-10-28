@@ -21,7 +21,8 @@ export default defineConfig({
 			'main-darker': '#1e1f22',
 			'main-dark': '#2b2d31',
 			main: '#313338',
-			'main-light': '#424a8c',
+			'main-light': '#35373c',
+			'main-lighter': '#404249',
 
 			'main-text-active': '#ffffff',
 			'main-text': '#d8ddf9',

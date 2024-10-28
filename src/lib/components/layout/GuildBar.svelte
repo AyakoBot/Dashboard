@@ -96,8 +96,7 @@
 
 	const showDot = (y: number) => {
 		if (!dotContainer.point) return;
-		if (dotContainer.point.style.top === `${y + offset}px`) return;
-		dotContainer.firstAppear = false;
+		if (dotContainer.point.style.top === `${y + offset}px` && !dotContainer.firstAppear) return;
 
 		dotContainer.point.animate(
 			[
@@ -110,7 +109,9 @@
 			{ duration: 200, easing, fill: 'forwards' },
 		);
 
+		dotContainer.firstAppear = false;
 		dotContainer.point.style.top = `${y + offset}px`;
+		dotContainer.point.style.left = '-4px';
 	};
 
 	const hideDot = () => {
@@ -122,6 +123,8 @@
 			easing,
 			fill: 'forwards',
 		});
+
+		dotContainer.point.style.left = '-8px';
 	};
 
 	const showName = (e: { y: number; name: string }) => {
@@ -185,7 +188,7 @@
 >
 	<div
 		class="max-w-15 fixed z-5
-  before:content-empty before:bg-main-darker before:w-19 before:-left-2 before:h-19 before:absolute
+  before:content-empty before:bg-main-darker before:w-17 before:-left-2 before:h-19 before:absolute
   before:-top-2 after:relative"
 	>
 		<hr

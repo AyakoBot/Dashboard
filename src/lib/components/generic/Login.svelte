@@ -3,6 +3,9 @@
 	import Switch from '$lib/components/generic/Switch.svelte';
 	import Tooltip from '$lib/components/generic/Tooltip.svelte';
 	import { OAuth2Scopes } from 'discord-api-types/v10';
+	import type { Snippet } from 'svelte';
+
+	const { children }: { children: Snippet } = $props();
 
 	const scopes = [
 		{
@@ -68,7 +71,7 @@
 		class="absolute bottom-0 right-0 w-full bg-main-pre-darkest
   flex flex-row justify-end items-center gap-2 h-15 border-t-solid border-main-dark border-0.01px"
 	>
-		<button class="btn-danger! mt-10 mb-10" type="button">Cancel</button>
+		{@render children()}
 		<button class="btn-success! mt-10 mr-5 mb-10" type="submit">Log in</button>
 	</div>
 </form>

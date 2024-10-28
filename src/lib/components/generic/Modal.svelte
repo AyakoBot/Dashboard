@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createEventDispatcher, getContext, setContext, type Snippet } from 'svelte';
+	import { createEventDispatcher, type Snippet } from 'svelte';
 
 	const {
 		children,
@@ -13,8 +13,6 @@
 		submitText?: string;
 		close: Function;
 	} = $props();
-
-	const showLogin = getContext('showLogin');
 </script>
 
 <div

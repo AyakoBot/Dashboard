@@ -22,14 +22,21 @@
 
 {#if showLogin}
 	<Modal author="Authorizing Ayako" close={() => (showLogin = false)}>
-		<Login />
+		<Login>
+			<button
+				class="btn-danger! mt-10 mb-10"
+				type="button"
+				onclick={() => (showLogin = false)}
+				onkeydown={(e) => e.key === 'Enter' && (showLogin = false)}>Cancel</button
+			>
+		</Login>
 	</Modal>
 {/if}
 
 <div id="main" class="flex flex-row justify-start items-start bg-main-dark relative text-poppins">
 	<GuildBar {data} on:login={() => (showLogin = true)} />
 
-	<div class="m-auto w-80%">
+	<div class="bg-main w-full">
 		{@render children()}
 	</div>
 </div>
