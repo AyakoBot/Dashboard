@@ -15,12 +15,6 @@ export const load: LayoutServerLoad = async (req) => {
 
 	return {
 		guilds: guildsRes,
-		user: token
-			? {
-					username,
-					avatar,
-					id,
-				}
-			: null,
+		user: token ? { username, avatar, id } : null,
 	};
 };

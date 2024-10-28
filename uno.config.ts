@@ -17,12 +17,14 @@ export default defineConfig({
 			/* Dark Theme / Default */
 			blurple: '#5865f2',
 			'main-darkest': '#090c17',
+			'main-pre-darkest': '#191d2a',
 			'main-darker': '#1e1f22',
 			'main-dark': '#2b2d31',
 			main: '#313338',
 			'main-light': '#424a8c',
 
-			'main-text': '#ffffff',
+			'main-text-active': '#ffffff',
+			'main-text': '#d8ddf9',
 			'alt-text': '#bdc4de',
 
 			primary: '#6066f0',
@@ -34,6 +36,9 @@ export default defineConfig({
 			'secondary-hover': '#6e6f78',
 			'danger-hover': '#892625',
 			'success-hover': '#3d6336',
+
+			'check-checked': '#23a55a',
+			'check-unchecked': '#80848e',
 		},
 	},
 	rules: [
