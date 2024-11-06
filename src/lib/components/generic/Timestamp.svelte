@@ -1,5 +1,5 @@
 <script lang="ts">
-	const { time, type = 'F' }: { time: number; type: 'd' | 'D' | 't' | 'T' | 'f' | 'F' | 'R' } =
+	const { time, type = 'F' }: { time: number; type?: 'd' | 'D' | 't' | 'T' | 'f' | 'F' | 'R' } =
 		$props();
 	const date = new Date(time);
 

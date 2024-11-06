@@ -1,7 +1,7 @@
 import { PUBLIC_API } from '$env/static/public';
 import type { LayoutServerLoad } from './$types';
 
-import type { Result as GETGuilds } from '@ayako/server/src/routes/v1/@me/guilds/+server.js';
+import type { Returned as GETGuilds } from '@ayako/server/src/routes/v1/@me/guilds/+server.js';
 
 export const load: LayoutServerLoad = async (req) => {
 	const guildsRes = await fetch(`${PUBLIC_API}/@me/guilds`, {
