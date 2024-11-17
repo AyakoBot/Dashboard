@@ -33,7 +33,10 @@
 	</Modal>
 {/if}
 
-<div id="main" class="flex flex-row justify-start items-start bg-main-dark relative text-poppins">
+<div
+	id="main"
+	class="flex flex-row justify-start items-start bg-main-dark relative text-poppins overflow-auto h-100vh"
+>
 	<GuildBar {data} on:login={() => (showLogin = true)} />
 
 	<div class="bg-main w-full">

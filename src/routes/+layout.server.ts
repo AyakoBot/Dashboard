@@ -12,9 +12,11 @@ export const load: LayoutServerLoad = async (req) => {
 	const username = req.cookies.get('discord-username');
 	const avatar = req.cookies.get('discord-avatar');
 	const token = req.cookies.get('discord-token');
+	const isDev = !!req.cookies.get('is-dev');
 
 	return {
 		guilds: guildsRes,
 		user: token ? { username, avatar, id } : null,
+		isDev,
 	};
 };

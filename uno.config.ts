@@ -23,20 +23,22 @@ export default defineConfig({
 			main: '#313338',
 			'main-light': '#35373c',
 			'main-lighter': '#404249',
+			'fake-white': '#f3fefc',
 
 			'main-text-active': '#ffffff',
 			'main-text': '#d8ddf9',
 			'alt-text': '#bdc4de',
 
-			primary: '#6066f0',
+			primary: '#5c69eb',
 			secondary: '#4f5058',
 			danger: '#ba3438',
 			success: '#508048',
 
-			'primary-hover': '#4d53c3',
+			'primary-hover': '#4b55be',
 			'secondary-hover': '#6e6f78',
 			'danger-hover': '#892625',
 			'success-hover': '#3d6336',
+			'white-hover': '#f7f7fd',
 
 			'check-checked': '#23a55a',
 			'check-unchecked': '#80848e',
@@ -51,13 +53,25 @@ export default defineConfig({
 	],
 	shortcuts: {
 		mention: 'bg-[rgba(88,101,242,0.3)] px-1 rounded-md',
-		'btn-base': 'min-w-15 duration-100 transition-all ease-in-out text-white rounded-md p-2 px-4',
-		'btn-primary': 'btn-base bg-primary hover:bg-primary-hover',
-		'btn-secondary': 'btn-base bg-secondary hover:bg-secondary-hover',
-		'btn-danger': 'btn-base bg-danger hover:bg-danger-hover',
-		'btn-success': 'btn-base bg-success hover:bg-success-hover',
-		'btn-link':
-			'btn-base bg-secondary hover:bg-secondary-hover flex flex-row justify-center items-center after:bg-[url(/svg/external.svg)] after:content-empty after:h-4 after:w-4 after:m-auto after:ml-1',
+		'btn-base':
+			'min-w-15 duration-200 transition-all ease-in-out text-white rounded-md px-4 hover:text-white! disabled:cursor-not-allowed',
+		'btn-primary': 'btn-base bg-primary',
+		'btn-secondary': 'btn-base bg-secondary',
+		'btn-danger': 'btn-base bg-danger',
+		'btn-success': 'btn-base bg-success',
+		'btn-link': 'btn-base bg-secondary  flex flex-row gap-2 justify-center items-center',
+
+		'btn-extra-primary-outlined':
+			'btn-base border-1 border-solid border-primary hover:bg-primary hover:text-white',
+		'btn-extra-inverted-white': 'btn-base bg-white hover:bg-white-hover text-primary',
+		'btn-extra-danger-outlined':
+			'btn-base border-1 border-solid border-danger hover:bg-danger hover:text-white',
+		'btn-extra-success-outlined':
+			'btn-base border-1 border-solid border-success  hover:bg-success hover:text-white',
+		'btn-extra-secondary-outlined':
+			'btn-base border-1 border-solid border-secondary hover:bg-secondary hover:text-white',
+		'btn-extra-link-outlined':
+			'btn-base border-1 border-solid border-secondary hover:bg-secondary hover:text-white  flex flex-row gap-2 justify-center items-center',
 	},
 	transformers: [transformerDirectives(), transformerVariantGroup()],
 	content: {
