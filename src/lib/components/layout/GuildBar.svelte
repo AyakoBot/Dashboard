@@ -247,7 +247,7 @@
 				<button
 					class="w-full h-full m-auto content-empty
      after:content-empty after:bg-[url(/svg/friends.svg)] after:block after:bg-[size:64px]
-     after:h-full after:w-full after:-mt-1 bg-transparent border-none m-0 after:bg-no-repeat"
+     after:h-full after:w-full after:-mt-1 after:bg-no-repeat"
 					onmouseenter={() =>
 						showName({ name: 'Log in', y: (profile?.getBoundingClientRect().y ?? 0) + 10 })}
 					onmouseleave={() => hideName('Log in')}
@@ -285,4 +285,4 @@
 	bind:this={dotContainer.bar}
 ></div>
 
-<div class="absolute w-1 h-17 bottom-0 left-0 bg-main-dark content-empty z-10"></div>
+<div class="absolute w-1.5 h-17 bottom-0 left-0 bg-main-dark content-empty z-10"></div>
