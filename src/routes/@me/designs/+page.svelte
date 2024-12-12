@@ -2,10 +2,10 @@
 	import Button from '$lib/components/generic/Button.svelte';
 </script>
 
-<section>
-	<h1>Buttons</h1>
+<section class="mx-5">
+	<h1 class="text-3xl font-bold mt-2">Buttons</h1>
 
-	<div class="mt-2 flex flex-row justify-evenly items-start gap-5 mx-5">
+	<div class="mt-2 flex flex-row justify-evenly items-start gap-5">
 		{#each [0, 1] as color}
 			<div
 				class="{color === 0 ? 'bg-main-darkest' : 'bg-fake-white'}
@@ -57,7 +57,7 @@
 		{/each}
 	</div>
 
-	<div class="mt-2 flex flex-row justify-evenly items-start gap-5 mx-5">
+	<div class="mt-2 flex flex-row justify-evenly items-start gap-5">
 		{#each [0, 1] as color}
 			<div
 				class="{color === 0 ? 'bg-main-darkest' : 'bg-fake-white'} 
@@ -74,10 +74,12 @@
 		{/each}
 	</div>
 
- <div class="flex flex-col justify-center items-start gap-2 mt-2">
-  <Button width="fit" text="Tiny" height="tiny" />
-  <Button width="fit" text="Small" height="small" />
-  <Button width="fit" text="Medium" height="medium" />
-  <Button width="fit" text="Large" height="large" />
- </div>
+	<div class="flex flex-col justify-center items-start gap-2 mt-2">
+		<Button width="fit" text="Tiny" height="tiny" />
+		<Button width="fit" text="Small" height="small" />
+		<Button width="fit" text="Medium" height="medium" />
+		<Button width="fit" text="Large" height="large" />
+	</div>
+
+	<h1 class="text-3xl font-bold">Searchable Select</h1>
 </section>

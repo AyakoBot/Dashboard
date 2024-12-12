@@ -1,3 +1,5 @@
+<svelte:options customElement="guild-bar" />
+
 <script lang="ts">
 	import SideBarIcon from '$lib/components/layout/SideBarIcon.svelte';
 	import { PermissionFlagsBits } from 'discord-api-types/v10';
@@ -45,7 +47,7 @@
 		if (!dotContainer.bar) return;
 
 		const oldPos = guilds.find(
-			(g) => g.id === ($page.url.pathname.startsWith('/@me') ? '@me' : $page.params.guildId),
+			(g) => g.id === ($page.url?.pathname.startsWith('/@me') ? '@me' : $page.params?.guildId),
 		);
 
 		if (!oldPos) return;
@@ -153,7 +155,7 @@
 		if (!dotContainer.bar) return;
 
 		const newPos = guilds.find(
-			(g) => g.id === ($page.route.id === '/@me' ? '@me' : $page.params.guildId),
+			(g) => g.id === ($page.route?.id === '/@me' ? '@me' : $page.params?.guildId),
 		);
 
 		if (!newPos) return;
@@ -208,7 +210,7 @@
 
 	<div class="h-80lvh mt-4">
 		<div class="content-empty h-15 min-w-15"></div>
-		{#each data.guilds.filter((g) => canManage(BigInt(g.permissions))) as guild, i}
+		{#each data.guilds?.filter((g) => canManage(BigInt(g.permissions))) as guild, i}
 			{#if i !== 0}
 				<br class="mt-2.5 content-empty block" />
 			{/if}

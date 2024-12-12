@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 
 	onMount(() => {
-		if (!$page.url.searchParams.has('logout')) return;
+		if (!$page.url?.searchParams.has('logout')) return;
 
 		setTimeout(() => {
 			location.href = '/?reload=true';

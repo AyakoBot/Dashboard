@@ -1,20 +1,20 @@
 <script lang="ts">
 	import '$lib/scripts/index.js';
 
+	import { invalidateAll } from '$app/navigation';
+	import { page } from '$app/stores';
 	import Login from '$lib/components/generic/Login.svelte';
 	import Modal from '$lib/components/generic/Modal.svelte';
-	import GuildBar from '$lib/components/layout/GuildBar.svelte';
+	import '$lib/components/layout/GuildBar.svelte';
 	import { onMount, type Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
-	import { page } from '$app/stores';
-	import { invalidateAll } from '$app/navigation';
 
 	const { data, children }: { data: LayoutData; children: Snippet } = $props();
 
 	let showLogin = $state(false);
 
 	onMount(() => {
-		if (!$page.url.searchParams.has('reload')) return;
+		if (!$page.url?.searchParams.has('reload')) return;
 		invalidateAll();
 		location.href = '/';
 	});
@@ -37,7 +37,7 @@
 	id="main"
 	class="flex flex-row justify-start items-start bg-main-dark relative text-poppins overflow-auto h-100vh"
 >
-	<GuildBar {data} on:login={() => (showLogin = true)} />
+	<guild-bar {data} onlogin={() => (showLogin = true)}></guild-bar>
 
 	<div class="bg-main w-full">
 		{@render children()}

@@ -49,7 +49,7 @@
 
 	$effect(() => {
 		active =
-			$page.params.guildId === id || (String($page.url.pathname).startsWith('/@me') && id === '@me');
+			$page.params?.guildId === id || (String($page.url?.pathname).startsWith('/@me') && id === '@me');
 	});
 </script>
 
