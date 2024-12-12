@@ -1,5 +1,6 @@
+<svelte:options customElement="side-bar-icon" />
+
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import { page } from '$app/stores';
 
 	const {
@@ -22,14 +23,8 @@
 	let img: HTMLImageElement | null = $state(null);
 	let active = $state(false);
 
-	const dispatch = createEventDispatcher<{
-		hover: { y: number; name: string };
-		unhover: { name: string };
-		imAt: number;
-	}>();
-
 	$effect(() => {
-		dispatch('imAt', self?.getBoundingClientRect().y || 0);
+		$host().dispatchEvent(new CustomEvent('imAt', { detail: self?.getBoundingClientRect().y || 0 }));
 	});
 
 	const hovered = (state: boolean) => {
@@ -41,9 +36,10 @@
 			img.src = `https://cdn.discordapp.com/icons/${id}/${src}.webp?size=64`;
 		}
 
-		dispatch(
-			state ? 'hover' : 'unhover',
-			state ? { y: self.getBoundingClientRect().y, name } : { name },
+		$host().dispatchEvent(
+			new CustomEvent(state ? 'hover' : 'unhover', {
+				detail: state ? { y: self.getBoundingClientRect().y, name } : name,
+			}),
 		);
 	};
 

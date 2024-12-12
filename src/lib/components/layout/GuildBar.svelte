@@ -1,20 +1,18 @@
 <svelte:options customElement="guild-bar" />
 
 <script lang="ts">
-	import SideBarIcon from '$lib/components/layout/SideBarIcon.svelte';
+	import '$lib/components/layout/SideBarIcon.svelte';
 	import { PermissionFlagsBits } from 'discord-api-types/v10';
 	import type { LayoutData } from '../../../routes/$types';
 	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { createEventDispatcher } from 'svelte';
 
 	const { data }: { data: LayoutData } = $props();
-	const dispatcher = createEventDispatcher<{ login: {} }>();
 	const easing = 'cubic-bezier(.35,1.58,1,.83)';
 	const offset = 26;
 
 	const login = () => {
-		dispatcher('login', {});
+		$host().dispatchEvent(new CustomEvent('login'));
 	};
 
 	const logout = () => {
@@ -137,9 +135,9 @@
 		nameContainer.style.top = `${e.y + offset}px`;
 	};
 
-	const hideName = (e: { name: string }) => {
+	const hideName = (e: string) => {
 		if (!nameContainer) return;
-		if (e.name !== name) return;
+		if (e !== name) return;
 		name = null;
 	};
 
@@ -196,16 +194,16 @@
 		<hr
 			class="border-t-2 border-main rounded-full w-101% m-auto z-5 absolute -bottom-2 left-50% -translate-x-50%"
 		/>
-		<SideBarIcon
+		<side-bar-icon
 			src="favicon.png"
 			name="My Settings"
 			size={40}
 			bg
 			id="@me"
-			on:hover={(e) => showName(e.detail)}
-			on:unhover={(e) => hideName(e.detail)}
-			on:imAt={(e) => pushGuilds({ id: '@me', y: e.detail })}
-		/>
+			onhover={(e: Event & { detail: { name: string; y: number } }) => showName(e.detail)}
+			onunhover={(e: Event & { detail: string }) => hideName(e.detail)}
+			onimAt={(e: Event & { detail: number }) => pushGuilds({ id: '@me', y: e.detail })}
+		></side-bar-icon>
 	</div>
 
 	<div class="h-80lvh mt-4">
@@ -215,14 +213,14 @@
 				<br class="mt-2.5 content-empty block" />
 			{/if}
 
-			<SideBarIcon
+			<side-bar-icon
 				src={guild.icon ?? undefined}
 				id={guild.id}
 				name={guild.name}
-				on:hover={(e) => showName(e.detail)}
-				on:unhover={(e) => hideName(e.detail)}
-				on:imAt={(e) => pushGuilds({ id: guild.id, y: e.detail })}
-			/>
+				onhover={(e: Event & { detail: { name: string; y: number } }) => showName(e.detail)}
+				onunhover={(e: Event & { detail: string }) => hideName(e.detail)}
+				onimAt={(e: Event & { detail: number }) => pushGuilds({ id: guild.id, y: e.detail })}
+			></side-bar-icon>
 		{/each}
 
 		<div class="content-empty h-19"></div>
@@ -238,10 +236,10 @@
 					class="h-full w-full flex flex-row justify-center items-center pb-1"
 					onmouseenter={() =>
 						showName({ name: 'Log out', y: (profile?.getBoundingClientRect().y ?? 0) + 10 })}
-					onmouseleave={() => hideName({ name: 'Log out' })}
+					onmouseleave={() => hideName('Log out')}
 					onfocus={() =>
 						showName({ name: 'Log out', y: (profile?.getBoundingClientRect().y ?? 0) + 10 })}
-					onblur={() => hideName({ name: 'Log out' })}
+					onblur={() => hideName('Log out')}
 					onclick={() => logout()}
 					onkeydown={(e) => e.key === 'Enter' && logout()}
 				>
@@ -254,9 +252,9 @@
      after:h-full after:w-full after:-mt-1 bg-transparent border-none m-0 after:bg-no-repeat"
 					onmouseenter={() =>
 						showName({ name: 'Log in', y: (profile?.getBoundingClientRect().y ?? 0) + 10 })}
-					onmouseleave={() => hideName({ name: 'Log in' })}
+					onmouseleave={() => hideName('Log in')}
 					onfocus={() => showName({ name: 'Log in', y: (profile?.getBoundingClientRect().y ?? 0) + 10 })}
-					onblur={() => hideName({ name: 'Log in' })}
+					onblur={() => hideName('Log in')}
 					onclick={() => login()}
 					onkeydown={(e) => e.key === 'Enter' && login()}
 					tabindex="0"

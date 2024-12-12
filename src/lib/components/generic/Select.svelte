@@ -2,9 +2,7 @@
 	import Fa from 'svelte-fa';
 	import { faChevronUp, faChevronDown, faClose } from '@fortawesome/free-solid-svg-icons';
 	import { faSquareCheck, faSquare } from '@fortawesome/free-regular-svg-icons';
-	import { createEventDispatcher } from 'svelte';
 	import { findInParents } from '$lib/scripts/util/utils.js';
-	const dispatch = createEventDispatcher<{ update: string[] }>();
 
 	const {
 		options,
@@ -20,13 +18,13 @@
 		id?: string;
 	} = $props();
 
- let element: HTMLDivElement;
+	let element: HTMLDivElement;
 	let expanded = $state(false);
 	let selectedOptions: typeof options = $state([]);
 
 	const update = () => {
 		if (expanded) return;
-		dispatch('update', selectedOptions);
+		$host().dispatchEvent(new CustomEvent('update', { detail: selectedOptions }));
 	};
 
 	const optionClick = (opt: string) => {
