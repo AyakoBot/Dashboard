@@ -32,7 +32,9 @@
 	let cssStyle = $state('');
 
 	onMount(() => {
-		cssStyle = `color: ${getBrightness(backgroundColor) > 255 / 2 ? 'black' : 'white'}; --un-bg-opacity: ${disabled ? 0.5 : 1};`;
+		setTimeout(() => {
+			cssStyle = `--color: ${getBrightness(backgroundColor) > 255 / 2 ? 'black' : 'white'}; color: var(--color); --un-bg-opacity: ${disabled ? 0.5 : 1};`;
+		}, 1);
 	});
 </script>
 
@@ -93,7 +95,7 @@
 		class:min-w-40={height === 'large'}
 		class:p-0={height === 'min'}
 		class:p-5={height === 'max'}
-		class="btn-extra-inverted-white text-primary! hover:text-primary!"
+		class="btn-extra-inverted-white hover:color-[--color]!"
 		class:cursor-not-allowed={disabled}
 		class:hover:bg-primary-hover={!disabled}
 		style={cssStyle}

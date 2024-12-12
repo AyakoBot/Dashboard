@@ -38,7 +38,7 @@ export default defineConfig({
 			'secondary-hover': '#6e6f78',
 			'danger-hover': '#892625',
 			'success-hover': '#3d6336',
-			'white-hover': '#f7f7fd',
+			'white-hover': '#84868b',
 
 			'check-checked': '#23a55a',
 			'check-unchecked': '#80848e',
@@ -63,7 +63,7 @@ export default defineConfig({
 
 		'btn-extra-primary-outlined':
 			'btn-base border-1 border-solid border-primary hover:bg-primary hover:text-white',
-		'btn-extra-inverted-white': 'btn-base bg-white hover:bg-white-hover text-primary',
+		'btn-extra-inverted-white': 'btn-base bg-white hover:bg-white-hover! text-primary',
 		'btn-extra-danger-outlined':
 			'btn-base border-1 border-solid border-danger hover:bg-danger hover:text-white',
 		'btn-extra-success-outlined':
