@@ -1,11 +1,12 @@
 <script lang="ts">
 	import '$lib/scripts/index.js';
+ import './main.css'
 
 	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Login from '$lib/components/generic/Login.svelte';
 	import Modal from '$lib/components/generic/Modal.svelte';
-	import '$lib/components/layout/GuildBar.svelte';
+	import GuildBar from '$lib/components/layout/GuildBar.svelte';
 	import { onMount, type Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
 
@@ -34,10 +35,9 @@
 {/if}
 
 <div
-	id="main"
 	class="flex flex-row justify-start items-start bg-main-dark relative text-poppins overflow-auto h-100vh"
 >
-	<guild-bar {data} onlogin={() => (showLogin = true)}></guild-bar>
+	<GuildBar {data} onLogin={() => (showLogin = true)} />
 
 	<div class="bg-main w-full">
 		{@render children()}
