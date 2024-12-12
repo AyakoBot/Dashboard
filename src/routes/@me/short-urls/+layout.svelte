@@ -21,9 +21,8 @@
 
 			{#each data.shortURLs as url, i}
 				<div
-					class="flex flex-col justify-between text-3 {$page.params?.id === url.id
-						? 'bg-main-darker/50'
-						: 'bg-main-darker'} px-2 py-1 rounded-md mr-1"
+					class="flex flex-col justify-between text-3 px-2 py-1 rounded-md mr-1 bg-main-darker/50"
+					class:bg-main-darker={$page.params?.id !== url.id}
 				>
 					<div class="flex flex-row justify-start items-start my-1">
 						{i + 1}.

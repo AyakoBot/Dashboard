@@ -8,8 +8,9 @@
 	<div class="mt-2 flex flex-row justify-evenly items-start gap-5">
 		{#each [0, 1] as color}
 			<div
-				class="{color === 0 ? 'bg-main-darkest' : 'bg-fake-white'}
-     w-full flex flex-col justify-start items-center p-5 gap-2 rounded-md"
+				class="w-full flex flex-col justify-start items-center p-5 gap-2 rounded-md"
+				class:bg-main-darkest={!color}
+				class:bg-fake-white={!!color}
 			>
 				<Button width="full" text="Primary - Filled" />
 				<Button width="full" text="Primary - Filled - Disabled" disabled={true} />
@@ -60,8 +61,9 @@
 	<div class="mt-2 flex flex-row justify-evenly items-start gap-5">
 		{#each [0, 1] as color}
 			<div
-				class="{color === 0 ? 'bg-main-darkest' : 'bg-fake-white'} 
-    w-full flex flex-col justify-start items-center p-5 gap-2 rounded-md"
+				class="w-full flex flex-col justify-start items-center p-5 gap-2 rounded-md"
+				class:bg-main-darkest={!color}
+				class:bg-fake-white={!!color}
 			>
 				<Button width="full" text="Tiny" height="tiny" />
 				<Button width="full" text="Small" height="small" />

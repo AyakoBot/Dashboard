@@ -39,24 +39,19 @@
 {#if style === 'primary'}
 	<button
 		bind:this={element}
-		class=" {width === 'full' ? 'w-full' : ''}
-  {height === 'tiny'
-			? 'p-1 min-w-15'
-			: height === 'small'
-				? 'p-2 min-w-20'
-				: height === 'medium'
-					? 'p-3 min-w-30'
-					: height === 'large'
-						? 'p-4 min-w-40'
-						: height === 'min'
-							? 'p-0'
-							: height === 'max'
-								? 'p-5'
-								: height === 'icon'
-									? 'p-1'
-									: 'p-2'}
-  hover:text-white! btn-primary
-  {disabled ? '' : 'hover:bg-primary-hover'}"
+		class:w-full={width === 'full'}
+		class:p-1={height === 'tiny' || height === 'icon'}
+		class:min-w-15={height === 'tiny'}
+		class:p-2={height === 'small'}
+		class:min-w-20={height === 'small'}
+		class:p-3={height === 'medium'}
+		class:min-w-30={height === 'medium'}
+		class:p-4={height === 'large'}
+		class:min-w-40={height === 'large'}
+		class:p-0={height === 'min'}
+		class:p-5={height === 'max'}
+		class="hover:text-white! btn-primary"
+		class:hover:bg-primary-hover={!disabled}
 		style={cssStyle}
 		{disabled}
 	>
@@ -65,24 +60,20 @@
 {:else if style === 'primary-outline'}
 	<button
 		bind:this={element}
-		class=" {width === 'full' ? 'w-full' : ''}
-  {height === 'tiny'
-   ? 'p-1'
-   : height === 'small'
-    ? 'p-2'
-    : height === 'medium'
-     ? 'p-3'
-     : height === 'large'
-      ? 'p-4'
-      : height === 'min'
-       ? 'p-0'
-       : height === 'max'
-        ? 'p-5'
-        : height === 'icon'
-         ? 'p-1'
-         : 'p-2'}
-  btn-extra-primary-outlined
-  {disabled ? '' : 'hover:bg-primary-hover hover:border-transparent'}"
+		class:w-full={width === 'full'}
+		class:p-1={height === 'tiny' || height === 'icon'}
+		class:min-w-15={height === 'tiny'}
+		class:p-2={height === 'small'}
+		class:min-w-20={height === 'small'}
+		class:p-3={height === 'medium'}
+		class:min-w-30={height === 'medium'}
+		class:p-4={height === 'large'}
+		class:min-w-40={height === 'large'}
+		class:p-0={height === 'min'}
+		class:p-5={height === 'max'}
+		class="btn-extra-primary-outlined"
+		class:hover:bg-primary-hover={!disabled}
+		class:hover:border-transparent={!disabled}
 		style={cssStyle}
 		{disabled}
 	>
@@ -91,25 +82,20 @@
 {:else if style === 'inverted-white'}
 	<button
 		bind:this={element}
-		class=" {width === 'full' ? 'w-full' : ''}
-  {height === 'tiny'
-			? 'p-1'
-			: height === 'small'
-				? 'p-2'
-				: height === 'medium'
-					? 'p-3'
-					: height === 'large'
-						? 'p-4'
-						: height === 'min'
-							? 'p-0'
-							: height === 'max'
-								? 'p-5'
-								: height === 'icon'
-									? 'p-1'
-									: 'p-2'}
-  {disabled ? 'cursor-not-allowed' : ''}
-  btn-extra-inverted-white text-primary! hover:text-primary!
-  {disabled ? '' : 'hover:bg-primary-hover'}"
+		class:w-full={width === 'full'}
+		class:p-1={height === 'tiny' || height === 'icon'}
+		class:min-w-15={height === 'tiny'}
+		class:p-2={height === 'small'}
+		class:min-w-20={height === 'small'}
+		class:p-3={height === 'medium'}
+		class:min-w-30={height === 'medium'}
+		class:p-4={height === 'large'}
+		class:min-w-40={height === 'large'}
+		class:p-0={height === 'min'}
+		class:p-5={height === 'max'}
+		class="btn-extra-inverted-white text-primary! hover:text-primary!"
+		class:cursor-not-allowed={disabled}
+		class:hover:bg-primary-hover={!disabled}
 		style={cssStyle}
 		{disabled}
 	>
@@ -118,24 +104,19 @@
 {:else if style === 'red'}
 	<button
 		bind:this={element}
-		class=" {width === 'full' ? 'w-full' : ''}
-  {height === 'tiny'
-			? 'p-1'
-			: height === 'small'
-				? 'p-2'
-				: height === 'medium'
-					? 'p-3'
-					: height === 'large'
-						? 'p-4'
-						: height === 'min'
-							? 'p-0'
-							: height === 'max'
-								? 'p-5'
-								: height === 'icon'
-									? 'p-1'
-									: 'p-2'}
-  btn-danger
-  {disabled ? '' : 'hover:bg-danger-hover'}"
+		class:w-full={width === 'full'}
+		class:p-1={height === 'tiny' || height === 'icon'}
+		class:min-w-15={height === 'tiny'}
+		class:p-2={height === 'small'}
+		class:min-w-20={height === 'small'}
+		class:p-3={height === 'medium'}
+		class:min-w-30={height === 'medium'}
+		class:p-4={height === 'large'}
+		class:min-w-40={height === 'large'}
+		class:p-0={height === 'min'}
+		class:p-5={height === 'max'}
+		class="btn-danger"
+		class:hover:bg-danger-hover={!disabled}
 		style={cssStyle}
 		{disabled}
 	>
@@ -144,24 +125,20 @@
 {:else if style === 'red-outline'}
 	<button
 		bind:this={element}
-		class=" {width === 'full' ? 'w-full' : ''}
-  {height === 'tiny'
-			? 'p-1'
-			: height === 'small'
-				? 'p-2'
-				: height === 'medium'
-					? 'p-3'
-					: height === 'large'
-						? 'p-4'
-						: height === 'min'
-							? 'p-0'
-							: height === 'max'
-								? 'p-5'
-								: height === 'icon'
-									? 'p-1'
-									: 'p-2'}
-  btn-extra-danger-outlined
-  {disabled ? '' : 'hover:bg-red-hover hover:border-transparent'}"
+		class:w-full={width === 'full'}
+		class:p-1={height === 'tiny' || height === 'icon'}
+		class:min-w-15={height === 'tiny'}
+		class:p-2={height === 'small'}
+		class:min-w-20={height === 'small'}
+		class:p-3={height === 'medium'}
+		class:min-w-30={height === 'medium'}
+		class:p-4={height === 'large'}
+		class:min-w-40={height === 'large'}
+		class:p-0={height === 'min'}
+		class:p-5={height === 'max'}
+		class="btn-extra-danger-outlined"
+		class:hover:bg-red-hover={!disabled}
+		class:hover:border-transparent={!disabled}
 		style={cssStyle}
 		{disabled}
 	>
@@ -170,24 +147,19 @@
 {:else if style === 'green'}
 	<button
 		bind:this={element}
-		class=" {width === 'full' ? 'w-full' : ''}
-  {height === 'tiny'
-			? 'p-1'
-			: height === 'small'
-				? 'p-2'
-				: height === 'medium'
-					? 'p-3'
-					: height === 'large'
-						? 'p-4'
-						: height === 'min'
-							? 'p-0'
-							: height === 'max'
-								? 'p-5'
-								: height === 'icon'
-									? 'p-1'
-									: 'p-2'}
-  btn-success
-  {disabled ? '' : 'hover:bg-success-hover'}"
+		class:w-full={width === 'full'}
+		class:p-1={height === 'tiny' || height === 'icon'}
+		class:min-w-15={height === 'tiny'}
+		class:p-2={height === 'small'}
+		class:min-w-20={height === 'small'}
+		class:p-3={height === 'medium'}
+		class:min-w-30={height === 'medium'}
+		class:p-4={height === 'large'}
+		class:min-w-40={height === 'large'}
+		class:p-0={height === 'min'}
+		class:p-5={height === 'max'}
+		class="btn-success"
+		class:hover:bg-success-hover={!disabled}
 		style={cssStyle}
 		{disabled}
 	>
@@ -196,24 +168,20 @@
 {:else if style === 'green-outline'}
 	<button
 		bind:this={element}
-		class=" {width === 'full' ? 'w-full' : ''}
-  {height === 'tiny'
-			? 'p-1'
-			: height === 'small'
-				? 'p-2'
-				: height === 'medium'
-					? 'p-3'
-					: height === 'large'
-						? 'p-4'
-						: height === 'min'
-							? 'p-0'
-							: height === 'max'
-								? 'p-5'
-								: height === 'icon'
-									? 'p-1'
-									: 'p-2'}
-  btn-extra-success-outlined
-  {disabled ? '' : 'hover:bg-green-hover hover:border-transparent'}"
+		class:w-full={width === 'full'}
+		class:p-1={height === 'tiny' || height === 'icon'}
+		class:min-w-15={height === 'tiny'}
+		class:p-2={height === 'small'}
+		class:min-w-20={height === 'small'}
+		class:p-3={height === 'medium'}
+		class:min-w-30={height === 'medium'}
+		class:p-4={height === 'large'}
+		class:min-w-40={height === 'large'}
+		class:p-0={height === 'min'}
+		class:p-5={height === 'max'}
+		class="btn-extra-success-outlined"
+		class:hover:bg-green-hover={!disabled}
+		class:hover:border-transparent={!disabled}
 		style={cssStyle}
 		{disabled}
 	>
@@ -222,24 +190,19 @@
 {:else if style === 'secondary'}
 	<button
 		bind:this={element}
-		class=" {width === 'full' ? 'w-full' : ''}
-  {height === 'tiny'
-			? 'p-1'
-			: height === 'small'
-				? 'p-2'
-				: height === 'medium'
-					? 'p-3'
-					: height === 'large'
-						? 'p-4'
-						: height === 'min'
-							? 'p-0'
-							: height === 'max'
-								? 'p-5'
-								: height === 'icon'
-									? 'p-1'
-									: 'p-2'}
-  btn-secondary
-  {disabled ? '' : 'hover:bg-secondary-hover'}"
+		class:w-full={width === 'full'}
+		class:p-1={height === 'tiny' || height === 'icon'}
+		class:min-w-15={height === 'tiny'}
+		class:p-2={height === 'small'}
+		class:min-w-20={height === 'small'}
+		class:p-3={height === 'medium'}
+		class:min-w-30={height === 'medium'}
+		class:p-4={height === 'large'}
+		class:min-w-40={height === 'large'}
+		class:p-0={height === 'min'}
+		class:p-5={height === 'max'}
+		class="btn-secondary"
+		class:hover:bg-secondary-hover={!disabled}
 		style={cssStyle}
 		{disabled}
 	>
@@ -248,24 +211,20 @@
 {:else if style === 'secondary-outline'}
 	<button
 		bind:this={element}
-		class=" {width === 'full' ? 'w-full' : ''}
-  {height === 'tiny'
-			? 'p-1'
-			: height === 'small'
-				? 'p-2'
-				: height === 'medium'
-					? 'p-3'
-					: height === 'large'
-						? 'p-4'
-						: height === 'min'
-							? 'p-0'
-							: height === 'max'
-								? 'p-5'
-								: height === 'icon'
-									? 'p-1'
-									: 'p-2'}
-  btn-extra-secondary-outlined
-  {disabled ? '' : 'hover:bg-secondary-hover hover:border-transparent'}"
+		class:w-full={width === 'full'}
+		class:p-1={height === 'tiny' || height === 'icon'}
+		class:min-w-15={height === 'tiny'}
+		class:p-2={height === 'small'}
+		class:min-w-20={height === 'small'}
+		class:p-3={height === 'medium'}
+		class:min-w-30={height === 'medium'}
+		class:p-4={height === 'large'}
+		class:min-w-40={height === 'large'}
+		class:p-0={height === 'min'}
+		class:p-5={height === 'max'}
+		class="btn-extra-secondary-outlined"
+		class:hover:bg-secondary-hover={!disabled}
+		class:hover:border-transparent={!disabled}
 		style={cssStyle}
 		{disabled}
 	>
@@ -274,24 +233,19 @@
 {:else if style === 'link'}
 	<button
 		bind:this={element}
-		class=" {width === 'full' ? 'w-full' : ''}
-  {height === 'tiny'
-			? 'p-1'
-			: height === 'small'
-				? 'p-2'
-				: height === 'medium'
-					? 'p-3'
-					: height === 'large'
-						? 'p-4'
-						: height === 'min'
-							? 'p-0'
-							: height === 'max'
-								? 'p-5'
-								: height === 'icon'
-									? 'p-1'
-									: 'p-2'}
-  btn-link
-  {disabled ? '' : 'hover:bg-secondary-hover'}"
+		class:w-full={width === 'full'}
+		class:p-1={height === 'tiny' || height === 'icon'}
+		class:min-w-15={height === 'tiny'}
+		class:p-2={height === 'small'}
+		class:min-w-20={height === 'small'}
+		class:p-3={height === 'medium'}
+		class:min-w-30={height === 'medium'}
+		class:p-4={height === 'large'}
+		class:min-w-40={height === 'large'}
+		class:p-0={height === 'min'}
+		class:p-5={height === 'max'}
+		class="btn-link"
+		class:hover:bg-secondary-hover={!disabled}
 		style={cssStyle}
 		{disabled}
 	>
@@ -301,24 +255,20 @@
 {:else if style === 'link-outline'}
 	<button
 		bind:this={element}
-		class=" {width === 'full' ? 'w-full' : ''}
-  {height === 'tiny'
-			? 'p-1'
-			: height === 'small'
-				? 'p-2'
-				: height === 'medium'
-					? 'p-3'
-					: height === 'large'
-						? 'p-4'
-						: height === 'min'
-							? 'p-0'
-							: height === 'max'
-								? 'p-5'
-								: height === 'icon'
-									? 'p-1'
-									: 'p-2'}
-  btn-extra-link-outlined
-  {disabled ? '' : 'hover:bg-secondary-hover hover:border-transparent'}"
+		class:w-full={width === 'full'}
+		class:p-1={height === 'tiny' || height === 'icon'}
+		class:min-w-15={height === 'tiny'}
+		class:p-2={height === 'small'}
+		class:min-w-20={height === 'small'}
+		class:p-3={height === 'medium'}
+		class:min-w-30={height === 'medium'}
+		class:p-4={height === 'large'}
+		class:min-w-40={height === 'large'}
+		class:p-0={height === 'min'}
+		class:p-5={height === 'max'}
+		class="btn-extra-link-outlined"
+		class:hover:bg-secondary-hover={!disabled}
+		class:hover:border-transparent={!disabled}
 		style={cssStyle}
 		{disabled}
 	>

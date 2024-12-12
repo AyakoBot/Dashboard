@@ -62,11 +62,14 @@
 	href={id === '@me' ? '/@me' : `/guilds/${id}`}
 >
 	<div
-		class="hover:rounded-[20px] flex justify-center items-center of-hidden min-w-15 min-h-15 ease-in-out transition-all duration-300 box-shadow-main w-full aspect-square of-hidden {bg
-			? 'bg-main'
-			: ''} {id === 'favicon'
-			? 'bg-main hover:bg-blurple transition-all duration-300 ease-in-out'
-			: ''} {active ? 'rounded-[20px]' : 'rounded-[30px]'}"
+		class="hover:rounded-[20px] flex justify-center items-center of-hidden min-w-15 min-h-15 ease-in-out transition-all duration-300 box-shadow-main w-full aspect-square of-hidden" 
+   class:bg-main={bg || id === 'favicon'}
+   class:rounded-[20px]={active}
+   class:rounded-[30px]={!active}
+   class:hover:bg-blurple={id === 'favicon'}
+   class:transition-all={id === 'favicon'}
+   class:duration-300={id === 'favicon'}
+   class:ease-in-out={id === 'favicon'}
 	>
 		{#if src}
 			<img

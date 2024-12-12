@@ -269,11 +269,10 @@
 
 <div
 	bind:this={nameContainer}
-	class="{name
-		? ''
-		: 'hidden'} absolute bg-main-darkest left-20 top-50% -translate-y-50% w-fit max-w-[200px]
+	class="absolute bg-main-darkest left-20 top-50% -translate-y-50% w-fit max-w-[200px]
   whitespace-normal break-words rounded-[5px] border-alt-text border-op-50 border-0.1px
   border-solid px-3 py-1 box-shadow-main font-bold z-10"
+  class:hidden="{!name}"
 >
 	{name}
 </div>
