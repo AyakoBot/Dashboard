@@ -1,5 +1,3 @@
-<svelte:options customElement="side-bar-icon" />
-
 <script lang="ts">
 	import { page } from '$app/stores';
 
@@ -10,6 +8,9 @@
 		bg = false,
 		name,
 		id,
+		onHover,
+		onUnhover,
+		onImAt,
 	}: {
 		id: string;
 		bg?: boolean;
@@ -17,6 +18,9 @@
 		src?: string;
 		size?: number;
 		alt?: string;
+		onHover: (v: { y: number; name: string }) => void;
+		onUnhover: (v: string) => void;
+		onImAt: (v: number) => void;
 	} = $props();
 
 	let self: HTMLElement | null = null;
@@ -24,7 +28,7 @@
 	let active = $state(false);
 
 	$effect(() => {
-		$host().dispatchEvent(new CustomEvent('imAt', { detail: self?.getBoundingClientRect().y || 0 }));
+		onImAt(self?.getBoundingClientRect().y || 0);
 	});
 
 	const hovered = (state: boolean) => {
@@ -36,11 +40,8 @@
 			img.src = `https://cdn.discordapp.com/icons/${id}/${src}.webp?size=64`;
 		}
 
-		$host().dispatchEvent(
-			new CustomEvent(state ? 'hover' : 'unhover', {
-				detail: state ? { y: self.getBoundingClientRect().y, name } : name,
-			}),
-		);
+		if (state) onHover({ y: self.getBoundingClientRect().y, name });
+		else onUnhover(name);
 	};
 
 	$effect(() => {
@@ -62,14 +63,14 @@
 	href={id === '@me' ? '/@me' : `/guilds/${id}`}
 >
 	<div
-		class="hover:rounded-[20px] flex justify-center items-center of-hidden min-w-15 min-h-15 ease-in-out transition-all duration-300 box-shadow-main w-full aspect-square of-hidden" 
-   class:bg-main={bg || id === 'favicon'}
-   class:rounded-[20px]={active}
-   class:rounded-[30px]={!active}
-   class:hover:bg-blurple={id === 'favicon'}
-   class:transition-all={id === 'favicon'}
-   class:duration-300={id === 'favicon'}
-   class:ease-in-out={id === 'favicon'}
+		class="hover:rounded-[20px] flex justify-center items-center of-hidden min-w-15 min-h-15 ease-in-out transition-all duration-300 box-shadow-main w-full aspect-square of-hidden"
+		class:bg-main={bg || id === 'favicon'}
+		class:rounded-[20px]={active}
+		class:rounded-[30px]={!active}
+		class:hover:bg-blurple={id === 'favicon'}
+		class:transition-all={id === 'favicon'}
+		class:duration-300={id === 'favicon'}
+		class:ease-in-out={id === 'favicon'}
 	>
 		{#if src}
 			<img

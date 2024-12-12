@@ -1,18 +1,16 @@
-<svelte:options customElement="guild-bar" />
-
 <script lang="ts">
-	import '$lib/components/layout/SideBarIcon.svelte';
+	import SideBarIcon from '$lib/components/layout/SideBarIcon.svelte';
 	import { PermissionFlagsBits } from 'discord-api-types/v10';
 	import type { LayoutData } from '../../../routes/$types';
 	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/stores';
 
-	const { data }: { data: LayoutData } = $props();
+	const { data, onLogin }: { data: LayoutData; onLogin: () => void } = $props();
 	const easing = 'cubic-bezier(.35,1.58,1,.83)';
 	const offset = 26;
 
 	const login = () => {
-		$host().dispatchEvent(new CustomEvent('login'));
+		onLogin();
 	};
 
 	const logout = () => {
@@ -194,16 +192,16 @@
 		<hr
 			class="border-t-2 border-main rounded-full w-101% m-auto z-5 absolute -bottom-2 left-50% -translate-x-50%"
 		/>
-		<side-bar-icon
+		<SideBarIcon
 			src="favicon.png"
 			name="My Settings"
 			size={40}
 			bg
 			id="@me"
-			onhover={(e: Event & { detail: { name: string; y: number } }) => showName(e.detail)}
-			onunhover={(e: Event & { detail: string }) => hideName(e.detail)}
-			onimAt={(e: Event & { detail: number }) => pushGuilds({ id: '@me', y: e.detail })}
-		></side-bar-icon>
+			onHover={showName}
+			onUnhover={hideName}
+			onImAt={(e) => pushGuilds({ id: '@me', y: e })}
+		/>
 	</div>
 
 	<div class="h-80lvh mt-4">
@@ -213,14 +211,14 @@
 				<br class="mt-2.5 content-empty block" />
 			{/if}
 
-			<side-bar-icon
+			<SideBarIcon
 				src={guild.icon ?? undefined}
 				id={guild.id}
 				name={guild.name}
-				onhover={(e: Event & { detail: { name: string; y: number } }) => showName(e.detail)}
-				onunhover={(e: Event & { detail: string }) => hideName(e.detail)}
-				onimAt={(e: Event & { detail: number }) => pushGuilds({ id: guild.id, y: e.detail })}
-			></side-bar-icon>
+				onHover={showName}
+				onUnhover={hideName}
+				onImAt={(e) => pushGuilds({ id: guild.id, y: e })}
+			/>
 		{/each}
 
 		<div class="content-empty h-19"></div>
@@ -272,7 +270,7 @@
 	class="absolute bg-main-darkest left-20 top-50% -translate-y-50% w-fit max-w-[200px]
   whitespace-normal break-words rounded-[5px] border-alt-text border-op-50 border-0.1px
   border-solid px-3 py-1 box-shadow-main font-bold z-10"
-  class:hidden="{!name}"
+	class:hidden={!name}
 >
 	{name}
 </div>

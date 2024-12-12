@@ -10,12 +10,14 @@
 		required = false,
 		label,
 		id = Math.random().toString(36).substring(7),
+		onUpdate,
 	}: {
 		options: string[];
 		single: boolean;
 		required: boolean;
 		label: string;
 		id?: string;
+		onUpdate: (v: string[]) => void;
 	} = $props();
 
 	let element: HTMLDivElement;
@@ -24,7 +26,7 @@
 
 	const update = () => {
 		if (expanded) return;
-		$host().dispatchEvent(new CustomEvent('update', { detail: selectedOptions }));
+		onUpdate(selectedOptions);
 	};
 
 	const optionClick = (opt: string) => {
