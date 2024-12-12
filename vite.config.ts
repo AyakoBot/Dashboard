@@ -1,13 +1,11 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-import { redirect } from '@sveltejs/kit';
-import { sveltekit } from '@sveltejs/kit/vite';
-// import Unlighthouse from '@unlighthouse/vite';
 import { defineConfig } from 'vite';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { sveltekit } from '@sveltejs/kit/vite';
+import extractorSvelte from '@unocss/extractor-svelte';
 import UnoCSS from '@unocss/svelte-scoped/vite';
 
 export default defineConfig({
-	plugins: [
-		sveltekit(),
-		UnoCSS({ injectReset: '' }),
-	],
+	plugins: [UnoCSS({ injectReset: '' }), sveltekit(), extractorSvelte()],
 });
+ 

@@ -8,7 +8,7 @@
 	let uses: Promise<GETUses> | null = $state(null);
 
 	const getUsage = () => {
-		uses = fetch(`/@me/short-urls/${$page.params.id}`).then((r) => {
+		uses = fetch(`/@me/short-urls/${$page.params?.id}`).then((r) => {
 			if (r.ok) return r.json();
 			r.text().then((t) => {
 				throw new Error(t);

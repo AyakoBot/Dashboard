@@ -21,7 +21,7 @@
 
 			{#each data.shortURLs as url, i}
 				<div
-					class="flex flex-col justify-between text-3 {$page.params.id === url.id
+					class="flex flex-col justify-between text-3 {$page.params?.id === url.id
 						? 'bg-main-darker/50'
 						: 'bg-main-darker'} px-2 py-1 rounded-md mr-1"
 				>
@@ -72,7 +72,7 @@
 			{/each}
 		</section>
 
-		{#if $page.params.id}
+		{#if $page.params?.id}
 			<section
 				class="flex flex-col gap-2 max-h-100lvh of-y-auto mb-10 w-full hide-scrollbar pl-1 bg-main-lighter box-shadow-main"
 			>

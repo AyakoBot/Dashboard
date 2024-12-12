@@ -28,12 +28,6 @@
 			use: 'Lets Ayako help you set up Custom-Clients or Linked-Roles-Decorations',
 			access: 'Full VIEW access to your Applications',
 		},
-		// {
-		// 	scope: OAuth2Scopes.RelationshipsRead,
-		//  name: 'Read Relationships',
-		// 	use: 'Allows Ayako to automatically sync your friends and blocked users, making them unable to interact with you',
-		// 	access: 'Full VIEW access to your Relationships',
-		// },
 		{
 			scope: OAuth2Scopes.ApplicationCommandsPermissionsUpdate,
 			name: 'Update Command Permissions',

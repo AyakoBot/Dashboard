@@ -250,8 +250,8 @@
 			{:else}
 				<button
 					class="w-full h-full m-auto content-empty
-     after:content-empty after:bg-[url(/svg/friends.svg)] after:block after:ml-1 after:bg-[size:64px]
-     after:h-full after:w-full after:-mt-1"
+     after:content-empty after:bg-[url(/svg/friends.svg)] after:block after:bg-[size:64px]
+     after:h-full after:w-full after:-mt-1 bg-transparent border-none m-0 after:bg-no-repeat"
 					onmouseenter={() =>
 						showName({ name: 'Log in', y: (profile?.getBoundingClientRect().y ?? 0) + 10 })}
 					onmouseleave={() => hideName({ name: 'Log in' })}
