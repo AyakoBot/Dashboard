@@ -1,24 +1,34 @@
 <script lang="ts">
 	import { findInParents } from '$lib/scripts/util/utils.js';
+	import Options from './Select/Options.svelte';
+	import SelectedOption from './Select/SelectedOption.svelte';
+	import SelectedOptions from './Select/SelectedOptions.svelte';
 
 	const {
 		options,
-		single = true,
+		maxOpts = 1,
+		minOpts = 1,
 		required = false,
+		searchable = false,
 		label,
 		id = Math.random().toString(36).substring(7),
 		onupdate,
 	}: {
 		options: string[];
-		single: boolean;
+		maxOpts: number;
+		minOpts: number;
 		required: boolean;
+		searchable?: boolean;
 		label: string;
 		id?: string;
 		onupdate?: (v: string[]) => void;
 	} = $props();
 
-	let element: HTMLDivElement;
+	const single = maxOpts === 1;
+
+	let element: HTMLDivElement | null = $state(null);
 	let expanded = $state(false);
+	let selectSearch = $state('');
 	let selectedOptions: typeof options = $state([]);
 
 	const update = () => {
@@ -26,10 +36,7 @@
 		onupdate?.(selectedOptions);
 	};
 
-	const optionClick = (
-		e: (MouseEvent | KeyboardEvent) & { currentTarget: EventTarget & HTMLDivElement },
-		opt: string,
-	) => {
+	const optionClick = (opt: string) => {
 		if (opt === 'Clear selection') {
 			selectedOptions = [];
 
@@ -58,8 +65,8 @@
 		update();
 	};
 
-	const labelClick = () => {
-		expanded = !expanded;
+	const labelClick = (updateState?: boolean) => {
+		expanded = updateState !== undefined ? updateState : !expanded;
 		update();
 	};
 </script>
@@ -73,105 +80,95 @@
 		value={selectedOptions.length ? JSON.stringify(selectedOptions) : ''}
 		class="w-1px h-1px absolute top-full"
 		name={id}
-		onfocus={() => element.focus()}
-		tabindex="-1"
+		onfocus={() => element?.focus()}
+		tabindex={searchable ? 0 : -1}
 	/>
-	<div
-		bind:this={element}
-		onclick={labelClick}
-		onkeydown={(e) => (e.key === 'Enter' ? labelClick() : undefined)}
-		role="button"
-		tabindex="0"
-		class="cursor-pointer bg-neutral-900 w-full rounded-md px-2 py-2 relative text-left"
-		aria-label="Toggle Select"
-	>
-		{#if selectedOptions.length}
-			<div class="flex flex-row flex-wrap gap-1 items-center">
-				{#each selectedOptions as opt, j (j)}
-					{#if single}
-						<div
-							class="relative w-full"
-							onclick={(e) => optionClick(e, opt)}
-							onkeydown={(e) => (e.key === 'Enter' ? optionClick(e, opt) : undefined)}
-							role="button"
-							tabindex="0"
-							aria-label="Toggle Select"
-						>
-							{opt}
-						</div>
-					{:else}
-						<div
-							class="px-2 py-1 bg-neutral-800 relative rounded-md flex flex-row justify-evenly items-center gap-2"
-							onclick={(e) => optionClick(e, opt)}
-							onkeydown={(e) => (e.key === 'Enter' ? optionClick(e, opt) : undefined)}
-							role="button"
-							tabindex="0"
-							aria-label="Remove Select"
-						>
-							<span>
-								{opt}
-							</span>
-							<img
-								src="/svg/close.svg"
-								class="!inline pointer-events-none select-none"
-								alt="Remove"
-								width="16"
-								height="16"
-							/>
-						</div>
-					{/if}
-				{/each}
+	{#if searchable}
+		<div
+			class="w-full relative bg-main-darker rounded-md flex flex-row items-center"
+			class:pl-1={selectedOptions.length}
+		>
+			{#if selectedOptions.length}
+				<div
+					class="flex flex-row gap-1 items-center"
+					class:top-1={!single}
+					class:top-2={single}
+					class:left-1={!single}
+					class:left-2={single}
+				>
+					{#each selectedOptions as opt, j (j)}
+						<SelectedOption {single} {optionClick} {opt} />
+					{/each}
+				</div>
 
-				{#if !single}
-					<div class="color-neutral-500">{label}</div>
-				{/if}
-			</div>
-		{:else}
-			<div class="color-neutral-500">{label}</div>
-		{/if}
+				<div
+					class="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none flex flex-row-reverse"
+				>
+					<span
+						class="i-tabler-chevron-up transition-all duration-100 ease-in-out select-none"
+						class:rotate-180={expanded}
+					></span>
+				</div>
+			{/if}
 
-		<div class="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none flex flex-row-reverse">
-			<img
-				src="/svg/chevron-up.svg"
-				class:rotate-180={expanded}
-				class="transition-all duration-100 ease-in-out"
-				alt="Expand"
-				width="16"
-				height="16"
+			<input
+				bind:this={element}
+				bind:value={selectSearch}
+				onclick={() => labelClick(true)}
+				onkeydown={(e) => (e.key === 'Enter' ? labelClick(true) : undefined)}
+				role="button"
+				tabindex="0"
+				class="cursor-pointer bg-transparent rounded-md w-full px-2 py-2 relative text-left placeholder:color-neutral-500 focus:outline-none"
+				aria-label="Toggle Select"
+				placeholder={label}
+				{id}
 			/>
 		</div>
-	</div>
-
-	{#if expanded}
+	{:else}
 		<div
-			class="absolute top-full right-1/2 translate-x-1/2 bg-neutral-800 w-full z-100 rounded-md max-h-50 scroll-auto of-x-hidden custom-scrollbar"
+			bind:this={element}
+			onclick={() => labelClick()}
+			onkeydown={(e) => (e.key === 'Enter' ? labelClick() : undefined)}
+			role="button"
+			tabindex="0"
+			class="cursor-pointer bg-main-darker w-full rounded-md px-2 relative text-left focus:outline-none"
+			class:pl-1={selectedOptions.length}
+			class:py-1={selectedOptions.length}
+			class:py-2={!selectedOptions.length}
+			aria-label="Toggle Select"
 		>
-			{#each required ? options : ['Clear selection', ...options] as opt, i}
-				<div
-					onclick={(e) => optionClick(e, opt)}
-					onkeydown={(e) => (e.key === 'Enter' ? optionClick(e, opt) : undefined)}
-					role="button"
-					tabindex="0"
-					class="text-left px-2 py-2 hover:bg-neutral-600 rounded-md relative"
-					class:color-white:50={!i}
-					aria-label="Toggle Select"
-				>
-					{opt}
-					{#if !single}
-						<div class="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">
-							{#if selectedOptions.includes(opt) && !!i}
-								<img src="/svg/square-check.svg" alt="Select" width="16" height="16" />
-							{:else if !!i}
-								<img src="/svg/square.svg" alt="Deselect" width="16" height="16" />
-							{/if}
-						</div>
-					{/if}
-				</div>
-			{/each}
+			<SelectedOptions {selectedOptions} {single} {label} {optionClick} />
+
+			<div class="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none flex flex-row-reverse">
+				<span
+					class="i-tabler-chevron-up transition-all duration-100 ease-in-out select-none"
+					class:rotate-180={expanded}
+				></span>
+			</div>
 		</div>
 	{/if}
 
+	<div class="w-full flex flex-col justify-center flex-wrap">
+		<Options
+			{expanded}
+			{options}
+			{single}
+			{required}
+			{selectedOptions}
+			{optionClick}
+			{selectSearch}
+		/>
+	</div>
+
 	{#if required && !selectedOptions.length}
 		<div class="color-red-500 text-2.5">This must have a value</div>
+	{/if}
+
+	{#if selectedOptions.length > maxOpts}
+		<div class="color-red-500 text-2.5">This cannot have more than {maxOpts} values</div>
+	{/if}
+
+	{#if required && selectedOptions.length < minOpts}
+		<div class="color-red-500 text-2.5">This cannot have less than {maxOpts} values</div>
 	{/if}
 </div>

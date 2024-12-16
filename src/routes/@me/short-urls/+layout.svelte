@@ -31,13 +31,7 @@
 							onclick={() => navigator.clipboard.writeText(`https://wzxy.org/${url.id}`)}
 						>
 							wzxy.org/{url.id}
-							<img
-								src="/svg/clipboard.svg"
-								alt=""
-								class="group-hover:block hidden"
-								width="16"
-								height="16"
-							/>
+							<span class="i-tabler-copy block group-hover:block hidden"></span>
 						</button>
 						<button class="btn-danger justify-self-end self-end ml-auto"> Delete </button>
 						<a
@@ -57,13 +51,7 @@
 							<span class="truncate">
 								{url.forward.replace('https://', '').replace('http://', '')}
 							</span>
-							<img
-								src="/svg/clipboard.svg"
-								alt=""
-								class="group-hover:block hidden flex-shrink-0"
-								width="16"
-								height="16"
-							/>
+							<span class="i-tabler-copy block group-hover:block hidden flex-shrink-0"></span>
 						</button>
 						Uses: {url.uses}
 					</div>

@@ -39,7 +39,7 @@
 	};
 </script>
 
-<div {id} class="cursor-pointer bg-neutral-900 rounded-md relative">
+<div {id} class="cursor-pointer bg-main-darker rounded-md relative">
 	<div class="w-full relative text-left">
 		{#if size === 'paragraph'}
 			<textarea
@@ -49,7 +49,7 @@
 				bind:value
 				{id}
 				tabindex="-1"
-				class="bg-transparent w-full -mb-2 -mt-0.5 h-20"
+				class="bg-transparent w-full -mb-2 -mt-0.5 h-20 pl-2 pt-2 focus:outline-none"
 				oninput={() => update()}
 			></textarea>
 		{:else}
@@ -63,7 +63,7 @@
 				bind:value
 				{id}
 				tabindex="-1"
-				class="bg-transparent w-full h-full p-2"
+				class="bg-transparent w-full h-full p-2 focus:outline-none"
 				oninput={update}
 			/>
 		{/if}
@@ -92,10 +92,6 @@
 
 {#if maxLen && String(value ?? '').length > maxLen}
 	<div class="color-red-500 text-2.5">This value is too long</div>
-{/if}
-
-{#if minLen && String(value ?? '').length < minLen}
-	<div class="color-red-500 text-2.5">This value is too short</div>
 {/if}
 
 {#if minLen && String(value ?? '').length < minLen}

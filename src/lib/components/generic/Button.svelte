@@ -276,7 +276,7 @@
 		{disabled}
 	>
 		{text}
-		<img src="/svg/external.svg" alt="" width="20" />
+		<span class="i-tabler-external-link block"></span>
 	</button>
 {:else if style === 'link-outline'}
 	<button
@@ -300,6 +300,6 @@
 		{disabled}
 	>
 		{text}
-		<img src="/svg/external.svg" alt="" width="20" />
+		<span class="i-tabler-external-link block"></span>
 	</button>
 {/if}

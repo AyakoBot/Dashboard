@@ -20,7 +20,7 @@
 		tooltip.style.left = '';
 	};
 
- // TODO: tooltips dont display properly in modal
+	// TODO: tooltips dont display properly in modal
 </script>
 
 <div
@@ -31,7 +31,7 @@
 	onfocus={() => hover()}
 	onblur={() => unhover()}
 >
-	<img bind:this={mark} src="/svg/info.svg" class="w-6 h-6" alt="Info" />
+	<span class="i-tabler-info-circle block"></span>
 
 	<div
 		bind:this={tooltip}

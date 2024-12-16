@@ -110,7 +110,8 @@
 	<div class="mt-2">
 		<Select
 			options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(String)}
-			single={true}
+			maxOpts={1}
+			minOpts={1}
 			required={true}
 			label="Single Required"
 		/>
@@ -119,7 +120,8 @@
 	<div class="mt-2">
 		<Select
 			options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(String)}
-			single={true}
+			maxOpts={1}
+			minOpts={1}
 			required={false}
 			label="Single Optional"
 		/>
@@ -127,38 +129,86 @@
 		<div class="mt-2">
 			<Select
 				options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(String)}
-				single={false}
+				maxOpts={2}
+				minOpts={5}
 				required={true}
 				label="Multi Required"
+			/>
+		</div>
+
+		<div class="mt-2">
+			<Select
+				options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(String)}
+				maxOpts={2}
+				minOpts={5}
+				required={false}
+				label="Multi Optional"
+			/>
+		</div>
+
+		<h1 class="text-3xl font-bold mt-5">Searchable Select</h1>
+
+		<div class="mt-2">
+			<Select
+				options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(String)}
+				maxOpts={1}
+				minOpts={1}
+				required={true}
+				label="Single Required"
+				searchable={true}
+			/>
+		</div>
+
+		<div class="mt-2">
+			<Select
+				options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(String)}
+				maxOpts={1}
+				minOpts={1}
+				required={false}
+				label="Single Optional"
+				searchable={true}
 			/>
 
 			<div class="mt-2">
 				<Select
 					options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(String)}
-					single={false}
-					required={false}
-					label="Multi Optional"
+					maxOpts={2}
+					minOpts={5}
+					required={true}
+					label="Multi Required"
+					searchable={true}
 				/>
 			</div>
-		</div>
 
-		<h1 class="text-3xl font-bold mt-5">Input</h1>
+			<div class="mt-2">
+				<Select
+					options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(String)}
+					maxOpts={2}
+					minOpts={5}
+					required={false}
+					label="Multi Optional"
+					searchable={true}
+				/>
+			</div>
 
-		<div class="mt-2">
-			<TextInput required={true} label="Text Required" size="paragraph" />
-		</div>
+			<h1 class="text-3xl font-bold mt-5">Input</h1>
 
-		<div class="mt-2">
-			<TextInput required={false} label="Text Optional" />
-		</div>
+			<div class="mt-2">
+				<TextInput required={true} label="Text Required" size="paragraph" />
+			</div>
 
-		<div class="mt-2">
-			<NumberInput required={true} label="Number Required" maxLen={4} maxVal={998} minVal={0} />
+			<div class="mt-2">
+				<TextInput required={false} label="Text Optional" />
+			</div>
+
+			<div class="mt-2">
+				<NumberInput required={true} label="Number Required" maxLen={4} maxVal={998} minVal={0} />
+			</div>
 		</div>
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
 	</div>
- <br />
- <br />
- <br />
- <br />
- <br />
 </section>

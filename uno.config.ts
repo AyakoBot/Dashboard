@@ -16,10 +16,11 @@ export default defineConfig({
 		colors: {
 			/* Dark Theme / Default */
 			blurple: '#5865f2',
-			'main-darkest': '#090c17',
+			'main-darkest': '#1c1d23',
 			'main-pre-darkest': '#191d2a',
 			'main-darker': '#1e1f22',
 			'main-dark': '#2b2d31',
+			'main-dark-hover': '#36373c',
 			main: '#313338',
 			'main-light': '#35373c',
 			'main-lighter': '#404249',

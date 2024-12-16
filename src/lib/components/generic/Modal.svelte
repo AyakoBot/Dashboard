@@ -39,10 +39,12 @@ p-5 bg-main-darker rounded-lg cursor-default relative"
 
 			<button
 				aria-label="close"
-				class="bg-[url(/svg/close.svg)] content-empty h-5 w-5 color-alt-text hover:color-main-text"
+				class="content-empty h-5 w-5 color-alt-text hover:color-main-text"
 				onclick={() => close()}
 				onkeydown={(e) => e.key === 'Enter' && close()}
-			></button>
+			>
+				<span class="i-tabler-x block"></span>
+			</button>
 		</div>
 		{@render children()}
 	</div>
