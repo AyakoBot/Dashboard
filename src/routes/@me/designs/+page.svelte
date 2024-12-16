@@ -1,8 +1,30 @@
 <script>
 	import Button from '$lib/components/generic/Button.svelte';
+	import Modal from '$lib/components/generic/Modal.svelte';
+	import NumberInput from '$lib/components/generic/NumberInput.svelte';
+	import Select from '$lib/components/generic/Select.svelte';
+	import TextInput from '$lib/components/generic/TextInput.svelte';
+
+	let showModal = $state(false);
 </script>
 
 <section class="mx-5">
+	<h1 class="text-3xl font-bold mt-2">Modal</h1>
+	<Button width="fit" text="Open Modal" onclick={() => (showModal = true)} />
+
+	{#if showModal}
+		<Modal author="Author" close={() => (showModal = false)}>
+			This is a Modal
+			<div
+				class="absolute bottom-0 right-0 w-full bg-main-pre-darkest
+   flex flex-row justify-end items-center gap-2 h-15 border-t-solid border-main-dark border-0.01px"
+			>
+				<button class="btn-success! mt-10 mr-5 mb-10" type="submit">Submit</button>
+				<button class="btn-danger! mt-10 mr-5 mb-10" onclick={() => (showModal = false)}>Cancel</button>
+			</div>
+		</Modal>
+	{/if}
+
 	<h1 class="text-3xl font-bold mt-2">Buttons</h1>
 
 	<div class="mt-2 flex flex-row justify-evenly items-start gap-5">
@@ -83,5 +105,55 @@
 		<Button width="fit" text="Large" height="large" />
 	</div>
 
-	<h1 class="text-3xl font-bold">Searchable Select</h1>
+	<h1 class="text-3xl font-bold mt-5">Select</h1>
+
+	<div class="mt-2">
+		<Select
+			options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(String)}
+			single={true}
+			required={true}
+			label="Single Required"
+		/>
+	</div>
+
+	<div class="mt-2">
+		<Select
+			options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(String)}
+			single={true}
+			required={false}
+			label="Single Optional"
+		/>
+
+		<div class="mt-2">
+			<Select
+				options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(String)}
+				single={false}
+				required={true}
+				label="Multi Required"
+			/>
+
+			<div class="mt-2">
+				<Select
+					options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(String)}
+					single={false}
+					required={false}
+					label="Multi Optional"
+				/>
+			</div>
+		</div>
+
+		<h1 class="text-3xl font-bold mt-5">Input</h1>
+
+		<div class="mt-2">
+			<TextInput required={true} label="Text Required" size="paragraph" />
+		</div>
+
+		<div class="mt-2">
+			<TextInput required={false} label="Text Optional" />
+		</div>
+
+		<div class="mt-2">
+			<NumberInput required={true} label="Number Required" maxLen={4} maxVal={998} minVal={0} />
+		</div>
+	</div>
 </section>

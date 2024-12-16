@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createEventDispatcher, type Snippet } from 'svelte';
+	import { type Snippet } from 'svelte';
 
 	const {
 		children,

@@ -3,6 +3,10 @@
 	import getBrightness from '$lib/scripts/util/getBrightness';
 	import { onMount } from 'svelte';
 
+	type EventVar = MouseEvent & {
+		currentTarget: EventTarget & HTMLButtonElement;
+	};
+
 	type Styles =
 		| 'primary'
 		| 'primary-outline'
@@ -25,7 +29,17 @@
 		disabled = false,
 		height = 'small',
 		width = 'fit',
-	}: { text: string; style?: Styles; disabled?: boolean; height?: Height; width?: Width } = $props();
+
+		onclick,
+	}: {
+		text: string;
+		style?: Styles;
+		disabled?: boolean;
+		height?: Height;
+		width?: Width;
+
+		onclick?: (e: EventVar) => void;
+	} = $props();
 
 	let element: HTMLButtonElement | null = $state(null);
 	const backgroundColor = $derived(getEffectiveBackgroundColor(element));
@@ -40,6 +54,7 @@
 
 {#if style === 'primary'}
 	<button
+		{onclick}
 		bind:this={element}
 		class:w-full={width === 'full'}
 		class:p-1={height === 'tiny' || height === 'icon'}
@@ -61,6 +76,7 @@
 	</button>
 {:else if style === 'primary-outline'}
 	<button
+		{onclick}
 		bind:this={element}
 		class:w-full={width === 'full'}
 		class:p-1={height === 'tiny' || height === 'icon'}
@@ -83,6 +99,7 @@
 	</button>
 {:else if style === 'inverted-white'}
 	<button
+		{onclick}
 		bind:this={element}
 		class:w-full={width === 'full'}
 		class:p-1={height === 'tiny' || height === 'icon'}
@@ -105,6 +122,7 @@
 	</button>
 {:else if style === 'red'}
 	<button
+		{onclick}
 		bind:this={element}
 		class:w-full={width === 'full'}
 		class:p-1={height === 'tiny' || height === 'icon'}
@@ -126,6 +144,7 @@
 	</button>
 {:else if style === 'red-outline'}
 	<button
+		{onclick}
 		bind:this={element}
 		class:w-full={width === 'full'}
 		class:p-1={height === 'tiny' || height === 'icon'}
@@ -148,6 +167,7 @@
 	</button>
 {:else if style === 'green'}
 	<button
+		{onclick}
 		bind:this={element}
 		class:w-full={width === 'full'}
 		class:p-1={height === 'tiny' || height === 'icon'}
@@ -169,6 +189,7 @@
 	</button>
 {:else if style === 'green-outline'}
 	<button
+		{onclick}
 		bind:this={element}
 		class:w-full={width === 'full'}
 		class:p-1={height === 'tiny' || height === 'icon'}
@@ -191,6 +212,7 @@
 	</button>
 {:else if style === 'secondary'}
 	<button
+		{onclick}
 		bind:this={element}
 		class:w-full={width === 'full'}
 		class:p-1={height === 'tiny' || height === 'icon'}
@@ -212,6 +234,7 @@
 	</button>
 {:else if style === 'secondary-outline'}
 	<button
+		{onclick}
 		bind:this={element}
 		class:w-full={width === 'full'}
 		class:p-1={height === 'tiny' || height === 'icon'}
@@ -234,6 +257,7 @@
 	</button>
 {:else if style === 'link'}
 	<button
+		{onclick}
 		bind:this={element}
 		class:w-full={width === 'full'}
 		class:p-1={height === 'tiny' || height === 'icon'}
@@ -256,6 +280,7 @@
 	</button>
 {:else if style === 'link-outline'}
 	<button
+		{onclick}
 		bind:this={element}
 		class:w-full={width === 'full'}
 		class:p-1={height === 'tiny' || height === 'icon'}
