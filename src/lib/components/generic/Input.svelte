@@ -37,27 +37,19 @@
 			onupdate?.(value);
 		}, 500);
 	};
-
-	const validateNumberInput = (event: Event) => {
-		const input = event.target as HTMLInputElement;
-		if (maxVal !== undefined && parseFloat(input.value) > maxVal) {
-			input.value = maxVal.toString();
-		}
-		update();
-	};
 </script>
 
-<div {id} class="cursor-pointer">
-	<div class="bg-neutral-900 w-full rounded-md px-2 py-2 relative text-left">
+<div {id} class="cursor-pointer bg-neutral-900 rounded-md relative">
+	<div class="w-full relative text-left">
 		{#if size === 'paragraph'}
 			<textarea
 				maxlength={maxLen}
 				minlength={minLen}
 				{required}
 				bind:value
-				id={id}
+				{id}
 				tabindex="-1"
-				class="bg-transparent w-full"
+				class="bg-transparent w-full -mb-2 -mt-0.5 h-20"
 				oninput={() => update()}
 			></textarea>
 		{:else}
@@ -69,23 +61,51 @@
 				min={minVal}
 				{required}
 				bind:value
-				id={id}
+				{id}
 				tabindex="-1"
-				class="bg-transparent w-full"
-				oninput={type === 'number' ? validateNumberInput : update}
+				class="bg-transparent w-full h-full p-2"
+				oninput={update}
 			/>
 		{/if}
 
 		<label
 			for={id}
-			class="color-neutral-500 absolute left-2"
-			class:hidden={value && String(value)?.length}
+			class="color-neutral-500 absolute left-2 pointer-events-none select-none top-2"
+			class:hidden={value !== null && String(value)?.length}
 		>
 			{label}
 		</label>
 	</div>
 
-	{#if required && !String(value)?.length}
-		<div class="color-red-500 text-2.5">This must have a value</div>
-	{/if}
+	<div
+		class="color-neutral-500 text-2.5 absolute right-0.75 bottom-0"
+		class:color-red-500={(maxLen && String(value || '').length > maxLen) ||
+			(minLen && String(value || '').length < minLen)}
+	>
+		{Number(String(value ?? '').length)}
+	</div>
 </div>
+
+{#if required && !String(value ?? '')?.length}
+	<div class="color-red-500 text-2.5">This must have a value</div>
+{/if}
+
+{#if maxLen && String(value ?? '').length > maxLen}
+	<div class="color-red-500 text-2.5">This value is too long</div>
+{/if}
+
+{#if minLen && String(value ?? '').length < minLen}
+	<div class="color-red-500 text-2.5">This value is too short</div>
+{/if}
+
+{#if minLen && String(value ?? '').length < minLen}
+	<div class="color-red-500 text-2.5">This value is too short</div>
+{/if}
+
+{#if type === 'number' && maxVal && Number(value) > maxVal}
+	<div class="color-red-500 text-2.5">This value is too high</div>
+{/if}
+
+{#if type === 'number' && minVal && Number(value) < minVal}
+	<div class="color-red-500 text-2.5">This value is too low</div>
+{/if}
