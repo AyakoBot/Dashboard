@@ -9,7 +9,7 @@
 
 <div class="w-full h-90lvh md:h-100vh">
 	<div class="flex flex-row">
-		<section class="flex flex-col gap-2 max-h-100lvh of-y-auto mb-10 w-full hide-scrollbar mr-1">
+		<section class="flex flex-col gap-2 max-h-100lvh of-y-auto w-full hide-scrollbar mr-1 pb-2">
 			<div class="h-16lvh md:h-16vh w-full mb-6">
 				<h1 class="text-lg font-bold my-2">Short URLs</h1>
 

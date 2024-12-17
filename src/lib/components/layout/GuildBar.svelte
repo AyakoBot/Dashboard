@@ -257,7 +257,7 @@
 					aria-label="Log in"
 				>
 					Log in
-     <span class="i-tabler-login block"></span>
+     <span class="i-tabler-login block h-10 w-10 m-auto color-emerald"></span>
 				</button>
 			{/if}
 		</div>
