@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { findInParents } from '$lib/scripts/util/utils.js';
+	import { twMerge } from 'tailwind-merge';
 	import Options from './Select/Options.svelte';
 	import SelectedOption from './Select/SelectedOption.svelte';
 	import SelectedOptions from './Select/SelectedOptions.svelte';
 
 	const {
+		class: className,
 		options,
 		maxOpts = 1,
 		minOpts = 1,
@@ -14,6 +16,7 @@
 		id = Math.random().toString(36).substring(7),
 		onupdate,
 	}: {
+		class: string;
 		options: string[];
 		maxOpts: number;
 		minOpts: number;
@@ -73,7 +76,7 @@
 
 <svelte:window on:click={clickWindow} on:keydown={clickWindow} />
 
-<div {id} class="relative w-full">
+<div {id} class={twMerge(['relative w-full', className])}>
 	<input
 		type="text"
 		{required}
@@ -148,7 +151,7 @@
 		</div>
 	{/if}
 
-	<div class="w-full flex flex-col justify-center flex-wrap">
+	<div class="w-full flex flex-col justify-center flex-wrap z-50 relative">
 		<Options
 			{expanded}
 			{options}

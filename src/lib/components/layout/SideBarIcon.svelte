@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	const {
 		src,
@@ -46,7 +46,7 @@
 
 	$effect(() => {
 		active =
-			$page.params?.guildId === id || (String($page.url?.pathname).startsWith('/@me') && id === '@me');
+			page.params?.guildId === id || (String(page.url?.pathname).startsWith('/@me') && id === '@me');
 	});
 </script>
 

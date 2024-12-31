@@ -1,14 +1,13 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import type { GETReturned as GETUses } from '@ayako/server/src/routes/v1/@me/short-urls/[id]/uses/+server.js';
+	import { afterNavigate } from '$app/navigation';
+	import { page } from '$app/state';
 	import Timestamp from '$lib/components/generic/Timestamp.svelte';
-	import { onMount } from 'svelte';
-	import { afterNavigate, beforeNavigate } from '$app/navigation';
+	import type { GETReturned as GETUses } from '@ayako/server/src/routes/v1/@me/short-urls/[id]/uses/+server.js';
 
 	let uses: Promise<GETUses> | null = $state(null);
 
 	const getUsage = () => {
-		uses = fetch(`/@me/short-urls/${$page.params?.id}`).then((r) => {
+		uses = fetch(`/@me/short-urls/${page.params?.id}`).then((r) => {
 			if (r.ok) return r.json();
 			r.text().then((t) => {
 				throw new Error(t);

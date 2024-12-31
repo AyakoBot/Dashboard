@@ -6,17 +6,19 @@
 		required = false,
 		type = 'on/off',
 		disabled = false,
+		oncheck,
 	}: {
-		title: string;
+		title?: string;
 		name: string;
 		checked?: boolean;
 		required?: boolean;
 		type?: 'y/n' | 'on/off';
 		disabled?: boolean;
+		oncheck?: (name: string, state: boolean) => void;
 	} = $props();
 </script>
 
-<div class="py-2" class:cursor-not-allowed={disabled} class:op-60={disabled}>
+<div class:cursor-not-allowed={disabled} class:op-60={disabled}>
 	<label
 		class="flex items-center relative w-max cursor-pointer select-none relative"
 		class:cursor-not-allowed={disabled}
@@ -36,6 +38,7 @@
 			class:cursor-not-allowed!={disabled}
 			class:bg-check-checked={checked}
 			class:bg-check-unchecked={!checked}
+			onchange={() => oncheck?.(name, checked)}
 			bind:checked
 		/>
 		<span

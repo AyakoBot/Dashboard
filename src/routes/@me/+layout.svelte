@@ -14,8 +14,7 @@
 		<hr class="bg-main-darker rounded-full w-full h-0.5 z-5 my-1 b-none" />
 
 		<SettingsButton text="Short URLs" href="/@me/short-urls" />
-		<SettingsButton text="RP Commands" href="/@me/rp-commands" />
-		<SettingsButton text="Blocked Users" href="/@me/blocked-users" />
+		<SettingsButton text="RP & Blocks" href="/@me/rp-commands" />
 		<SettingsButton text="Reminders" href="/@me/reminders" />
 		<SettingsButton text="Access Token" href="/@me/bot" />
 

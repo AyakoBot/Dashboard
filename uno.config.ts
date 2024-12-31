@@ -9,7 +9,6 @@ import {
 	transformerVariantGroup,
 } from 'unocss';
 import presetAnimations from 'unocss-preset-animations';
-import { presetShadcn } from 'unocss-preset-shadcn';
 
 export default defineConfig({
 	theme: {
@@ -86,7 +85,7 @@ export default defineConfig({
 		},
 	},
 	presets: [
-		presetAnimations() as any,
+		presetAnimations(),
 		presetRemToPx(),
 		presetUno(),
 		presetIcons({ scale: 1.2 }),
@@ -103,12 +102,6 @@ export default defineConfig({
 				clock: 'Bungee Outline',
 				card: 'Mina',
 			},
-		}),
-
-		presetShadcn({
-			color: 'stone',
-			// With default setting for SolidUI, you need to set the darkSelector option.
-			darkSelector: '[data-kb-theme="dark"]',
 		}),
 	],
 });

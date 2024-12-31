@@ -1,5 +1,5 @@
 import { PUBLIC_HOSTNAME } from '$env/static/public';
-import type { PageServerLoad } from '../../login/$types';
+import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => {
 	const basicCookieOptions: Parameters<typeof event.cookies.set>[2] = {

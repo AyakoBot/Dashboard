@@ -3,7 +3,7 @@
  import './main.css'
 
 	import { invalidateAll } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import Login from '$lib/components/generic/Login.svelte';
 	import Modal from '$lib/components/generic/Modal.svelte';
 	import GuildBar from '$lib/components/layout/GuildBar.svelte';
@@ -15,7 +15,7 @@
 	let showLogin = $state(false);
 
 	onMount(() => {
-		if (!$page.url?.searchParams.has('reload')) return;
+		if (!page.url.searchParams.has('reload')) return;
 		invalidateAll();
 		location.href = '/';
 	});

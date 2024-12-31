@@ -3,7 +3,7 @@
 	import { PermissionFlagsBits } from 'discord-api-types/v10';
 	import type { LayoutData } from '../../../routes/$types';
 	import { afterNavigate } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	const { data, onLogin }: { data: LayoutData; onLogin: () => void } = $props();
 	const easing = 'cubic-bezier(.35,1.58,1,.83)';
@@ -43,7 +43,7 @@
 		if (!dotContainer.bar) return;
 
 		const oldPos = guilds.find(
-			(g) => g.id === ($page.url?.pathname.startsWith('/@me') ? '@me' : $page.params?.guildId),
+			(g) => g.id === (page.url?.pathname.startsWith('/@me') ? '@me' : page.params?.guildId),
 		);
 
 		if (!oldPos) return;
@@ -151,7 +151,7 @@
 		if (!dotContainer.bar) return;
 
 		const newPos = guilds.find(
-			(g) => g.id === ($page.route?.id === '/@me' ? '@me' : $page.params?.guildId),
+			(g) => g.id === (page.route?.id === '/@me' ? '@me' : page.params?.guildId),
 		);
 
 		if (!newPos) return;
@@ -257,7 +257,7 @@
 					aria-label="Log in"
 				>
 					Log in
-     <span class="i-tabler-login block h-10 w-10 m-auto color-emerald"></span>
+					<span class="i-tabler-login block h-10 w-10 m-auto color-emerald"></span>
 				</button>
 			{/if}
 		</div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import ExplainBox from '$lib/components/generic/ExplainBox.svelte';
 	import { type Snippet } from 'svelte';
 	import type { LayoutServerData } from './$types';
@@ -22,7 +22,7 @@
 			{#each data.shortURLs as url, i}
 				<div
 					class="flex flex-col justify-between text-3 px-2 py-1 rounded-md mr-1 bg-main-darker/50"
-					class:bg-main-darker={$page.params?.id !== url.id}
+					class:bg-main-darker={page.params?.id !== url.id}
 				>
 					<div class="flex flex-row justify-start items-start my-1">
 						{i + 1}.
@@ -59,7 +59,7 @@
 			{/each}
 		</section>
 
-		{#if $page.params?.id}
+		{#if page.params?.id}
 			<section
 				class="flex flex-col gap-2 max-h-100lvh of-y-auto mb-10 w-full hide-scrollbar pl-1 bg-main-lighter box-shadow-main"
 			>
