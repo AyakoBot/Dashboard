@@ -10,7 +10,6 @@
 		id,
 		onHover,
 		onUnhover,
-		onImAt,
 	}: {
 		id: string;
 		bg?: boolean;
@@ -20,16 +19,25 @@
 		alt?: string;
 		onHover: (v: { y: number; name: string }) => void;
 		onUnhover: (v: string) => void;
-		onImAt: (v: number) => void;
 	} = $props();
 
 	let self: HTMLElement | null = null;
+	let barContainer: HTMLDivElement | null = $state(null);
 	let img: HTMLImageElement | null = $state(null);
+	let oldActive = false;
 	let active = $state(false);
 
-	$effect(() => {
-		onImAt(self?.getBoundingClientRect().y || 0);
-	});
+	const keyFrames = $derived(
+		active
+			? [
+					{ height: '32px', left: '-10px' },
+					{ height: '48px', left: '-10px' },
+				]
+			: [
+					{ height: '48px', left: '-10px' },
+					{ height: '32px', left: '-16px' },
+				],
+	);
 
 	const hovered = (state: boolean) => {
 		if (!self) return;
@@ -45,8 +53,35 @@
 	};
 
 	$effect(() => {
+		const returnFN = () => {
+			if (!barContainer) return;
+			if (!oldActive) return;
+			if (active) return;
+
+			barContainer.animate(keyFrames, {
+				fill: 'forwards',
+				duration: 100,
+				easing: 'ease-in-out',
+			});
+
+   oldActive = active;
+		};
+
 		active =
 			page.params?.guildId === id || (String(page.url?.pathname).startsWith('/@me') && id === '@me');
+
+		if (!barContainer) return returnFN;
+		if (!active) return returnFN;
+
+		barContainer.animate(keyFrames, {
+			fill: 'forwards',
+			duration: 100,
+			easing: 'ease-in-out',
+		});
+
+		oldActive = active;
+
+		return returnFN;
 	});
 </script>
 
@@ -95,4 +130,9 @@
 			</div>
 		{/if}
 	</div>
+
+	<div
+		class="absolute w-2 h-8 bg-main-text -left-4 top-50% -translate-y-50% content-empty rounded-full z-10 -translate-y-5"
+		bind:this={barContainer}
+	></div>
 </a>

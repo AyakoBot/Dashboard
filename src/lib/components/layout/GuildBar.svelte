@@ -1,185 +1,30 @@
 <script lang="ts">
 	import SideBarIcon from '$lib/components/layout/SideBarIcon.svelte';
-	import { PermissionFlagsBits } from 'discord-api-types/v10';
 	import type { LayoutData } from '../../../routes/$types';
-	import { afterNavigate } from '$app/navigation';
-	import { page } from '$app/state';
+
+	import { canManage, hideDot, setMouse, showName } from './GuildBar';
 
 	const { data, onLogin }: { data: LayoutData; onLogin: () => void } = $props();
-	const easing = 'cubic-bezier(.35,1.58,1,.83)';
-	const offset = 26;
 
-	const login = () => {
-		onLogin();
-	};
+	const login = () => onLogin();
+	const logout = () => (location.href = '/@me/logout?logout=true');
 
-	const logout = () => {
-		location.href = '/@me/logout?logout=true';
-	};
-
-	let guilds: { id: string; y: number }[] = [];
 	let nameContainer: HTMLDivElement | null = $state(null);
-	let dotContainer: {
-		point: HTMLDivElement | null;
-		bar: HTMLDivElement | null;
-		firstAppear: boolean;
-	} = $state({
-		point: null,
-		firstAppear: true,
-		bar: null,
-	});
-	let name = $state<string | null>(null);
-	let profile: HTMLDivElement | null = $state(null);
+	let dotContainer: HTMLDivElement | null = $state(null);
+
+	let currentName: string | null = $state(null);
 	let mouseY = $state(0);
+
+	let profile: HTMLDivElement | null = $state(null);
 	let guildBarSection: HTMLElement | null = $state(null);
-
-	const scroll = () => {
-		updateDotPos();
-		barScroll();
-	};
-
-	const barScroll = () => {
-		if (!guildBarSection) return;
-		if (!dotContainer.bar) return;
-
-		const oldPos = guilds.find(
-			(g) => g.id === (page.url?.pathname.startsWith('/@me') ? '@me' : page.params?.guildId),
-		);
-
-		if (!oldPos) return;
-
-		const newPos = { y: oldPos.y - guildBarSection.scrollTop };
-		dotContainer.bar.style.top = `${newPos.y + offset}px`;
-	};
-
-	const updateDotPos = () => {
-		if (!dotContainer.point) return;
-
-		dotContainer.point.style.top = `${dotContainer.point.getBoundingClientRect().top}px`;
-
-		dotContainer.point.animate(
-			[{ top: dotContainer.point.style.top }, { top: `${mouseY + offset}px` }],
-			{ duration: 200, easing, fill: 'forwards' },
-		);
-	};
-
-	const updateBarPos = (oldPos: number, newPos: number, initialAnimation: boolean = false) => {
-		if (!dotContainer.bar) return;
-		if (!guildBarSection) return;
-		if (initialAnimation) oldPos = newPos;
-
-		dotContainer.bar.style.top = `${dotContainer.bar.getBoundingClientRect().top}px`;
-
-		dotContainer.bar
-			.animate(
-				[
-					initialAnimation
-						? { top: dotContainer.bar.style.top, left: '-8px' }
-						: { top: dotContainer.bar.style.top },
-
-					initialAnimation
-						? { top: `${newPos + offset - guildBarSection.scrollTop}px`, left: '-4px' }
-						: { top: `${newPos + offset - guildBarSection.scrollTop}px` },
-				],
-				{ duration: 200, easing },
-			)
-			.finished.then(() => {
-				if (!dotContainer.bar) return;
-				if (!guildBarSection) return;
-
-				dotContainer.bar.style.top = `${newPos + offset - guildBarSection.scrollTop}px`;
-				dotContainer.bar.style.left = '-4px';
-			});
-	};
-
-	const showDot = (y: number) => {
-		if (!dotContainer.point) return;
-		if (dotContainer.point.style.top === `${y + offset}px` && !dotContainer.firstAppear) return;
-
-		dotContainer.point.animate(
-			[
-				{
-					top: dotContainer.point.style.top,
-					left: dotContainer.firstAppear ? '-8px' : '-4px',
-				},
-				{ top: `${y + offset}px`, left: '-4px' },
-			],
-			{ duration: 200, easing, fill: 'forwards' },
-		);
-
-		dotContainer.firstAppear = false;
-		dotContainer.point.style.top = `${y + offset}px`;
-		dotContainer.point.style.left = '-4px';
-	};
-
-	const hideDot = () => {
-		if (!dotContainer.point) return;
-		dotContainer.firstAppear = true;
-
-		dotContainer.point.animate([{ left: '-4px' }, { left: '-8px' }], {
-			duration: 200,
-			easing,
-			fill: 'forwards',
-		});
-
-		dotContainer.point.style.left = '-8px';
-	};
-
-	const showName = (e: { y: number; name: string }) => {
-		showDot(e.y);
-		if (!nameContainer) return;
-
-		name = e.name;
-		nameContainer.style.top = `${e.y + offset}px`;
-	};
-
-	const hideName = (e: string) => {
-		if (!nameContainer) return;
-		if (e !== name) return;
-		name = null;
-	};
-
-	const canManage = (permissions: bigint) =>
-		(permissions & PermissionFlagsBits.ManageGuild) === PermissionFlagsBits.ManageGuild;
-
-	const pushGuilds = (e: { id: string; y: number }) => {
-		guilds = guilds.filter((g) => g.id !== e.id);
-		guilds.push(e);
-	};
-
-	$effect(() => {
-		if (!dotContainer.bar) return;
-
-		const newPos = guilds.find(
-			(g) => g.id === (page.route?.id === '/@me' ? '@me' : page.params?.guildId),
-		);
-
-		if (!newPos) return;
-
-		updateBarPos(0, newPos.y, true);
-	});
-
-	afterNavigate((e) => {
-		const oldPos = guilds.find(
-			(g) => g.id === (e.from?.route.id === '/@me' ? '@me' : e.from?.params?.guildId),
-		);
-		const newPos = guilds.find(
-			(g) => g.id === (e.to?.route.id === '/@me' ? '@me' : e.to?.params?.guildId),
-		);
-
-		if (!oldPos) return;
-		if (!newPos) return;
-
-		updateBarPos(oldPos.y, newPos.y);
-	});
 </script>
 
-<svelte:body onmousemove={(e) => (mouseY = e.clientY - offset)} />
+<svelte:body onmousemove={(e) => setMouse(e.clientY, mouseY)} />
 
 <section
 	class="bg-main-darker flex flex-col justify-start items-center gap-2 p-2 h-100lvh box-shadow-main z-10
  of-y-scroll of-auto hide-scrollbar"
-	onmouseleave={() => hideDot()}
+	onmouseleave={() => hideDot(dotContainer!)}
 	onscroll={() => scroll()}
 	role="navigation"
 	bind:this={guildBarSection}
@@ -198,9 +43,11 @@
 			size={40}
 			bg
 			id="@me"
-			onHover={showName}
-			onUnhover={hideName}
-			onImAt={(e) => pushGuilds({ id: '@me', y: e })}
+			onHover={(e) => {
+				showName(e, dotContainer!, nameContainer!);
+				currentName = e.name;
+			}}
+			onUnhover={() => (currentName = null)}
 		/>
 	</div>
 
@@ -215,9 +62,11 @@
 				src={guild.icon ?? undefined}
 				id={guild.id}
 				name={guild.name}
-				onHover={showName}
-				onUnhover={hideName}
-				onImAt={(e) => pushGuilds({ id: guild.id, y: e })}
+				onHover={(e) => {
+					showName(e, dotContainer!, nameContainer!);
+					currentName = e.name;
+				}}
+				onUnhover={() => (currentName = null)}
 			/>
 		{/each}
 
@@ -232,12 +81,24 @@
 				<button
 					aria-label="Log out"
 					class="h-full w-full flex flex-row justify-center items-center pb-1"
-					onmouseenter={() =>
-						showName({ name: 'Log out', y: (profile?.getBoundingClientRect().y ?? 0) + 10 })}
-					onmouseleave={() => hideName('Log out')}
-					onfocus={() =>
-						showName({ name: 'Log out', y: (profile?.getBoundingClientRect().y ?? 0) + 10 })}
-					onblur={() => hideName('Log out')}
+					onmouseenter={() => {
+						showName(
+							{ y: (profile?.getBoundingClientRect().y ?? 0) + 10 },
+							dotContainer!,
+							nameContainer!,
+						);
+						currentName = 'Log out';
+					}}
+					onmouseleave={() => (currentName = null)}
+					onfocus={() => {
+						showName(
+							{ y: (profile?.getBoundingClientRect().y ?? 0) + 10 },
+							dotContainer!,
+							nameContainer!,
+						);
+						currentName = 'Log out';
+					}}
+					onblur={() => (currentName = null)}
 					onclick={() => logout()}
 					onkeydown={(e) => e.key === 'Enter' && logout()}
 				>
@@ -246,11 +107,24 @@
 			{:else}
 				<button
 					class="w-full h-full m-auto content-empty"
-					onmouseenter={() =>
-						showName({ name: 'Log in', y: (profile?.getBoundingClientRect().y ?? 0) + 10 })}
-					onmouseleave={() => hideName('Log in')}
-					onfocus={() => showName({ name: 'Log in', y: (profile?.getBoundingClientRect().y ?? 0) + 10 })}
-					onblur={() => hideName('Log in')}
+					onmouseenter={() => {
+						showName(
+							{ y: (profile?.getBoundingClientRect().y ?? 0) + 10 },
+							dotContainer!,
+							nameContainer!,
+						);
+						currentName = 'Log in';
+					}}
+					onmouseleave={() => (currentName = null)}
+					onfocus={() => {
+						showName(
+							{ y: (profile?.getBoundingClientRect().y ?? 0) + 10 },
+							dotContainer!,
+							nameContainer!,
+						);
+						currentName = 'Log in';
+					}}
+					onblur={() => (currentName = null)}
 					onclick={() => login()}
 					onkeydown={(e) => e.key === 'Enter' && login()}
 					tabindex="0"
@@ -269,19 +143,14 @@
 	class="absolute bg-main-darkest left-20 top-50% -translate-y-50% w-fit max-w-[200px]
   whitespace-normal break-words rounded-[5px] border-alt-text border-op-50 border-0.1px
   border-solid px-3 py-1 box-shadow-main font-bold z-10"
-	class:hidden={!name}
+	class:hidden={!currentName}
 >
-	{name}
+	{currentName}
 </div>
 
 <div
 	class="absolute w-2 h-8 bg-main-text/80 -left-2 top-0 content-empty rounded-full z-10 -translate-y-3"
-	bind:this={dotContainer.point}
-></div>
-
-<div
-	class="absolute w-2 h-12 bg-main-text -left-2 top-0 content-empty rounded-full z-10 -translate-y-5"
-	bind:this={dotContainer.bar}
+	bind:this={dotContainer}
 ></div>
 
 <div class="absolute w-1.5 h-17 bottom-0 left-0 bg-main-dark content-empty z-10"></div>
