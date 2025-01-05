@@ -98,7 +98,7 @@
 	href={id === '@me' ? '/@me' : `/guilds/${id}`}
 >
 	<div
-		class="hover:rounded-[20px] flex justify-center items-center of-hidden min-w-15 min-h-15 ease-in-out transition-all duration-300 box-shadow-main w-full aspect-square of-hidden"
+		class="hover:rounded-[20px] flex justify-center items-center of-hidden min-w-15 min-h-15 ease-in-out transition-all duration-300 box-shadow-main w-full aspect-square of-hidden transition-all duration-100 ease-in-out"
 		class:bg-main={bg || id === 'favicon'}
 		class:rounded-[20px]={active}
 		class:rounded-[30px]={!active}
