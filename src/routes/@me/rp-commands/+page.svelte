@@ -3,7 +3,8 @@
 	import Input from '$lib/components/generic/Input.svelte';
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
-	import RPToggle from '$lib/components/layout/RPToggle.svelte';
+	import RPToggle from '$lib/components/layout/@me/rp-commands/RPToggle.svelte';
+	import type { RUser } from '@ayako/bot/src/Typings/Redis';
 
 	const { data }: { data: PageData } = $props();
 	let search = $state('');
@@ -11,9 +12,9 @@
 	const commandEnabled: Record<string, boolean> = $state({});
 
 	onMount(() => {
-		data.baseStates
-			?.find((s) => s.user === '0')
-			?.commands.forEach((c) => (commandEnabled[c] = false));
+		[...data.stateMap.values()]
+			?.filter((s) => s.users.has('0'))
+			?.forEach((c) => (commandEnabled[c.command] = false));
 	});
 
 	const checkChange = (name: string, state: boolean) => {
@@ -37,8 +38,15 @@
 	<Input label="Search" required={false} type="text" class="mt-2" bind:value={search} />
 
 	<div class="grid grid-cols-2 gap-2 mt-2">
-		{#each data.commands.filter((c) => c.name.includes(search) || c.aliases.some( (a) => a.includes(search), )) as command, i}
-			<RPToggle {command} {checkChange} {commandEnabled} />
+		{#each data.commands.filter((c) => c.name.includes(search) || c.aliases.some( (a) => a.includes(search), )) as command}
+			<RPToggle
+				{command}
+				{checkChange}
+				{commandEnabled}
+				users={[...(data.stateMap.get(command.name)?.users || [])]
+					.map((u) => data.users?.find((u2) => u2.id === u))
+					.filter((u): u is RUser => !!u)}
+			/>
 		{/each}
 	</div>
 </section>

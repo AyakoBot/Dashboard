@@ -1,6 +1,8 @@
 <script lang="ts">
-	import Switch from '../generic/Switch.svelte';
-	import Select from '../generic/Select.svelte';
+	import Switch from '../../../generic/Switch.svelte';
+	import Select from '../../../generic/Select.svelte';
+	import type { RUser } from '@ayako/bot/src/Typings/Redis';
+	import User from './User.svelte';
 
 	let {
 		command,
@@ -11,8 +13,32 @@
 		command: { aliases: string[]; name: string };
 		checkChange: (n: string, v: boolean) => void;
 		commandEnabled: Record<string, boolean>;
-		users: { id: string; username: string; avatar: string }[];
+		users: (RUser | { id: string })[];
 	} = $props();
+
+	const unblock = (id: string) => {
+		users = users.filter((u) => (u as RUser).id !== id);
+
+		fetch(`/@me/rp-commands`, {
+			body: JSON.stringify({
+				command: command.name,
+				userId: id,
+			}),
+			method: 'DELETE',
+		});
+	};
+
+	const block = (user: RUser | { id: string }) => {
+		users = [...users, user];
+
+		fetch(`/@me/rp-commands`, {
+			body: JSON.stringify({
+				command: command.name,
+				userId: user.id,
+			}),
+			method: 'POST',
+		});
+	};
 
 	let expanded = $state(false);
 </script>
@@ -47,13 +73,18 @@
 	</div>
 
 	{#if expanded}
+		{#each users as user}
+			<User {user} onremove={(id) => unblock(id)} />
+		{/each}
+
 		<Select
 			class="mt-2"
 			maxOpts={Infinity}
 			minOpts={0}
-			options={['1', '2', '3']}
 			required={false}
-			label="Blocked Users"
+			searchable={true}
+			options={[]}
+			label="Block Users"
 		/>
 	{/if}
 </div>
