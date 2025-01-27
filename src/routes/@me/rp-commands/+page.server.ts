@@ -35,11 +35,13 @@ export const load: PageServerLoad = async (event) => {
 	const allIds = new Set<string>();
 	stateMap.forEach((s) => s.users.forEach((u) => (u !== '0' ? allIds.add(u) : undefined)));
 
-	const users = await makeRequest(
-		{ method: 'PUT', path: '/users/find-many', userIds: [...allIds] },
-		{},
-		event.fetch,
-	);
+	const users = allIds.size
+		? await makeRequest(
+				{ method: 'PUT', path: '/users/find-many', userIds: [...allIds] },
+				{},
+				event.fetch,
+			)
+		: [];
 
 	return {
 		commands,
