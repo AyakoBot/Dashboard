@@ -1,8 +1,6 @@
+import makeRequest from '$lib/scripts/util/makeRequest';
 import interactions from '@ayako/bot/src/BaseClient/Other/constants/interactions';
 import type { PageServerLoad } from './$types';
-import { PUBLIC_API } from '$env/static/public';
-import type { Returned as GETrp } from '@ayako/server/src/routes/v1/@me/rp/+server.js';
-import type { Returned as GETUsers } from '@ayako/server/src/routes/v1/users/find-many/+server.js';
 
 export const load: PageServerLoad = async (event) => {
 	const allCommands = [...new Set(interactions.map((i) => i.aliasOf))].map((i) => ({
@@ -24,12 +22,7 @@ export const load: PageServerLoad = async (event) => {
 		)
 		.sort((a, b) => a.name.localeCompare(b.name));
 
-	const baseStates = await event
-		.fetch(`${PUBLIC_API}/@me/rp`, {
-			headers: { Authorization: `Bearer ${event.cookies.get('discord-token')}` },
-		})
-		.then((r) => (r.status === 200 ? (r.json() as Promise<GETrp>) : null));
-
+	const baseStates = await makeRequest({ method: 'GET', path: '/@me/rp' }, {}, event.fetch);
 	const stateMap = new Map<string, { command: string; users: Set<string> }>();
 
 	baseStates?.forEach((s) => {
@@ -42,16 +35,11 @@ export const load: PageServerLoad = async (event) => {
 	const allIds = new Set<string>();
 	stateMap.forEach((s) => s.users.forEach((u) => (u !== '0' ? allIds.add(u) : undefined)));
 
-	const users = await event
-		.fetch(`${PUBLIC_API}/users/find-many`, {
-			method: 'PUT',
-			headers: {
-				Authorization: `Bearer ${event.cookies.get('discord-token')}`,
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ userIds: [...allIds] }),
-		})
-		.then((r) => (r.status === 200 ? (r.json() as Promise<GETUsers>) : null));
+	const users = await makeRequest(
+		{ method: 'PUT', path: '/users/find-many', userIds: [...allIds] },
+		{},
+		event.fetch,
+	);
 
 	return {
 		commands,

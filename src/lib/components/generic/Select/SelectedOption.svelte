@@ -1,13 +1,13 @@
 <script lang="ts">
+	import type { RChannel, RRole, RUser } from '@ayako/bot/src/Typings/Redis';
+
+	type Option = string | RRole | RChannel | RUser;
+
 	const {
 		single,
 		optionClick,
 		opt,
-	}: {
-		single: boolean;
-		optionClick: (opt: string) => void;
-		opt: string;
-	} = $props();
+	}: { single: boolean; optionClick: (opt: Option) => void; opt: Option } = $props();
 </script>
 
 {#if single}

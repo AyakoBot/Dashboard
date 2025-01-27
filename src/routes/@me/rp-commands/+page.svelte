@@ -1,10 +1,11 @@
 <script lang="ts">
 	import ExplainBox from '$lib/components/generic/ExplainBox.svelte';
 	import Input from '$lib/components/generic/Input.svelte';
-	import { onMount } from 'svelte';
-	import type { PageData } from './$types';
 	import RPToggle from '$lib/components/layout/@me/rp-commands/RPToggle.svelte';
 	import type { RUser } from '@ayako/bot/src/Typings/Redis';
+	import { onMount } from 'svelte';
+	import type { PageData } from './$types';
+	import makeRequest from '$lib/scripts/util/makeRequest';
 
 	const { data }: { data: PageData } = $props();
 	let search = $state('');
@@ -20,10 +21,11 @@
 	const checkChange = (name: string, state: boolean) => {
 		commandEnabled[name] = state;
 
-		fetch(`/@me/rp-commands`, {
-			body: JSON.stringify({ command: name, enabled: state, userId: '0' }),
-			method: 'PATCH',
-		});
+		makeRequest(
+			{ command: name, enabled: state, userId: '0', path: '/@me/rp', method: 'PATCH' },
+			{},
+			fetch,
+		);
 	};
 </script>
 

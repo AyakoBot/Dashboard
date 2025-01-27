@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { RChannel, RRole, RUser } from '@ayako/bot/src/Typings/Redis';
 	import SelectedOption from './SelectedOption.svelte';
 
 	const {
@@ -7,10 +8,10 @@
 		label,
 		optionClick,
 	}: {
-		selectedOptions: string[];
+		selectedOptions: (string | RUser | RChannel | RRole)[];
 		single: boolean;
 		label: string;
-		optionClick: (opt: string) => void;
+		optionClick: (opt: string | RUser | RChannel | RRole) => void;
 	} = $props();
 </script>
 

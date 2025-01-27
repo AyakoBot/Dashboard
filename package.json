@@ -25,7 +25,8 @@
 		"discord-api-types": "0.37.115",
 		"dotenv": "^16.4.7",
 		"js-cookie": "^3.0.5",
-		"tailwind-merge": "^2.6.0"
+		"tailwind-merge": "^2.6.0",
+		"zod": "^3.24.1"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.3.1",

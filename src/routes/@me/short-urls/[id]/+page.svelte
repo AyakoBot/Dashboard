@@ -2,16 +2,19 @@
 	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/state';
 	import Timestamp from '$lib/components/generic/Timestamp.svelte';
-	import type { GETReturned as GETUses } from '@ayako/server/src/routes/v1/@me/short-urls/[id]/uses/+server.js';
+	import makeRequest from '$lib/scripts/util/makeRequest';
+	import type { GETResponse as GETUses } from '@ayako/server/src/routes/v1/@me/short-urls/[id]/uses/+server.js';
 
 	let uses: Promise<GETUses> | null = $state(null);
 
 	const getUsage = () => {
-		uses = fetch(`/@me/short-urls/${page.params?.id}`).then((r) => {
-			if (r.ok) return r.json();
-			r.text().then((t) => {
-				throw new Error(t);
-			});
+		uses = makeRequest(
+			{ method: 'GET', path: '/@me/short-urls/:id/uses' },
+			{ id: page.params?.id },
+			fetch,
+		).then((r) => {
+			if (r) return r;
+			throw new Error('Error fetching usage');
 		});
 	};
 
