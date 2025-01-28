@@ -1,6 +1,6 @@
 import { type Handle } from '@sveltejs/kit';
 
-/** @type {import('@sveltejs/kit').Handle} */
+/** @type {import('@sveltejs/kit').Preload} */
 export const handle: Handle = async ({ event, resolve }) => {
 	const response = await resolve(event, {
 		transformPageChunk: (event) =>

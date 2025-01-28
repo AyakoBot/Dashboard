@@ -85,7 +85,7 @@
 
 <div class="bg-main-dark rounded-md p-2 select-none">
 	<div
-		class="flex flex-row justify-between items-center h-7"
+		class="flex flex-row justify-between items-center h-7 group"
 		role="button"
 		aria-expanded={expanded}
 		onclick={() => (expanded = !expanded)}
@@ -94,7 +94,7 @@
 	>
 		<div class="flex flex-row justify-center items-center">
 			<span
-				class="i-tabler-chevron-up mr-2 transition-all duration-100 ease-in-out"
+				class="i-tabler-chevron-up mr-2 transition-all duration-100 ease-in-out group-hover:rotate-90"
 				class:rotate-180={expanded}
 			></span>
 			{command.name}

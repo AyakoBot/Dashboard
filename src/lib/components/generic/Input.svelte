@@ -24,8 +24,8 @@
 		id?: string;
 		size?: 'short' | 'paragraph';
 		onupdate?: (v: string | number | null) => void;
-		class: string;
-		value: string;
+		class?: string;
+		value?: string;
 	} = $props();
 
 	let queued = false;
@@ -46,6 +46,7 @@
 		<div class="w-full relative text-left">
 			{#if size === 'paragraph'}
 				<textarea
+					name={id}
 					maxlength={maxLen}
 					minlength={minLen}
 					{required}
@@ -57,6 +58,7 @@
 				></textarea>
 			{:else}
 				<input
+					name={id}
 					{type}
 					maxlength={maxLen}
 					minlength={minLen}

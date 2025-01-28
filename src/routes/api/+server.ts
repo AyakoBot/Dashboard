@@ -63,7 +63,7 @@ const handler: RequestHandler = async (req) => {
 		});
 
 		if (!response.ok) {
-			console.log(await response.text(), validBody.data);
+			console.log(await response.text(), validBody.data.body);
 			return error(response.status, response.statusText);
 		}
 

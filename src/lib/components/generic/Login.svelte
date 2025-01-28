@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import Switch from '$lib/components/generic/Switch.svelte';
-	import Tooltip from '$lib/components/generic/Tooltip.svelte';
 	import { OAuth2Scopes } from 'discord-api-types/v10';
 	import type { Snippet } from 'svelte';
 
@@ -12,8 +11,7 @@
 			scope: OAuth2Scopes.Identify,
 			name: 'Identify',
 			use: 'Mandatory for Ayako to identify you',
-			access:
-				'Full VIEW access to your user profile\nExluding your email address, password, phone number and other security information',
+			access: 'Basic VIEW access to your user profile. Limited to things other users can see.',
 		},
 		{
 			scope: OAuth2Scopes.Guilds,
@@ -26,7 +24,7 @@
 			scope: OAuth2Scopes.ApplicationsBuildsRead,
 			name: 'Read Applications',
 			use: 'Lets Ayako help you set up Custom-Clients or Linked-Roles-Decorations',
-			access: 'Full VIEW access to your Applications',
+			access: 'Full VIEW access to your Applications. Excluding secrets and tokens.',
 		},
 		{
 			scope: OAuth2Scopes.ApplicationCommandsPermissionsUpdate,
@@ -47,7 +45,9 @@
 <form use:enhance action="/@me?/login" method="post">
 	{#each scopes as scope}
 		<div class="py-2">
-			<div class="flex flex-row justify-start gap-1 items-center text-4 gap-3">
+			<div class="flex flex-row justify-start gap-1 items-center text-4 gap-3 group relative">
+				<i class="i-tabler-info-circle"></i>
+
 				<Switch
 					checked
 					name={scope.scope}
@@ -55,7 +55,10 @@
 					type="y/n"
 					disabled={[OAuth2Scopes.Identify, OAuth2Scopes.Guilds].includes(scope.scope)}
 				/>
-				<Tooltip text={scope.access} />
+
+				<div class="tooltiptext">
+					{scope.access}
+				</div>
 			</div>
 			<div class="text-3 color-alt-text">{scope.use}</div>
 		</div>

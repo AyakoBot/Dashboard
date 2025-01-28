@@ -49,36 +49,44 @@ import type { GETResponse as GETSelfRPBlocks } from '@ayako/server/src/routes/v1
 // Users
 import type { PUTResponse as PUTFindUsers } from '@ayako/server/src/routes/v1/users/find-many/+server';
 import type { GETResponse as GETSearchUsers } from '@ayako/server/src/routes/v1/users/search/+server';
+// Reminders
+import type { GETResponse as GETReminders } from '@ayako/server/src/routes/v1/@me/reminders/+server';
+import type { POSTResponse as POSTReminder } from '@ayako/server/src/routes/v1/reminders/+server';
+import type { GETResponse as GETReminder } from '@ayako/server/src/routes/v1/reminders/[reminderId]/+server';
 
 type GETEndpointMap = {
 	// ++++ Documented ++++
-	// ShortURLs
-	'/@me/short-urls': GETShortUrls;
-	'/@me/short-urls/:id/uses': GETShortUrlUses;
-	// Self
+	// @me
 	'/@me': GETSelf;
 	'/@me/guilds': GETSelfGuilds;
-	// Appeals
+
+	'/@me/short-urls': GETShortUrls;
+	'/@me/short-urls/:id/uses': GETShortUrlUses;
+
+	'/@me/punishments': GETPunishments;
 	'/@me/appeals/guilds': GETAppealsGuilds;
-	'/guilds/:guildId/settings/appeal-questions': GETGuildAppealQuestions;
+
+	// Punishments
 	'/punishments/:punishmentId/status': GETPunishmentStatus;
+	'/punishments/:punishmentId': GETPunishment;
+
 	// Guilds
 	'/guilds': GETGuilds;
 	'/guilds/:guildId': GETGuild;
 	'/guilds/:guildId/lb': GETGuildLeaderboard;
-	// Punishments
-	'/@me/punishments': GETPunishments;
-	'/punishments/:punishmentId': GETPunishment;
+	'/guilds/:guildId/settings/appeal-questions': GETGuildAppealQuestions;
+	'/guilds/:guildId/linked-roles/:settingsId/decoration': GETLinkedRolesDecoration;
+
 	// QOTD
 	'/qotd': GETqotd;
-	// Linked-Roles Decoration
-	'/guilds/:guildId/linked-roles/:settingsId/decoration': GETLinkedRolesDecoration;
+
 	// Bot
 	'/bot/stats': GETBotStats;
 	'/bot/reviews': GETBotReviews;
 	'/bot/features': GETBotFeatures;
 	'/bot/contributers': GETBotContributers;
 	'/bot/artworks': GETBotArtworks;
+
 	// URL Scan
 	'/url-scan/:scanId': never;
 
@@ -87,6 +95,9 @@ type GETEndpointMap = {
 	'/@me/rp': GETSelfRPBlocks;
 	// Users
 	'/users/search': GETSearchUsers;
+	// Reminders
+	'/@me/reminders': GETReminders;
+	'/reminders/:reminderId': GETReminder;
 };
 
 type POSTEndpointMap = {
@@ -100,6 +111,8 @@ type POSTEndpointMap = {
 	// ++++ Undocumented ++++
 	// RP
 	'/@me/rp': never;
+	// Reminder
+	'/reminders': POSTReminder;
 };
 
 type PUTEndpointMap = {
@@ -126,6 +139,8 @@ type DELETEEndpointMap = {
 	// ++++ Undocumented ++++
 	// RP
 	'/@me/rp': never;
+	// Reminder
+	'/reminders/:reminderId': never;
 };
 
 export type EndpointMap = {
@@ -145,4 +160,5 @@ export type EndpointArgMap = {
 	'/punishments/:punishmentId/appeal': 'punishmentId';
 	'/punishments/:punishmentId/status': 'punishmentId';
 	'/url-scan/:scanId': 'scanId';
+	'/reminders/:reminderId': 'reminderId';
 } & Record<string, never>;

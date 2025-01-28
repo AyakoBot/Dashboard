@@ -25,7 +25,7 @@ flex flex-row items-center justify-center"
 >
 	<div
 		class="w-[min(40rem,100%)] h-[min(40rem,100%)] of-auto z-99999999
-p-5 bg-main-darker rounded-lg cursor-default relative"
+p-5 bg-main-dark rounded-lg cursor-default relative"
 		onclick={(e) => e.stopPropagation()}
 		onkeydown={(e) => e.stopPropagation()}
 		role="menu"

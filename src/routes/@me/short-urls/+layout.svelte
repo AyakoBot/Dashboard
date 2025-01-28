@@ -3,59 +3,28 @@
 	import ExplainBox from '$lib/components/generic/ExplainBox.svelte';
 	import { type Snippet } from 'svelte';
 	import type { LayoutServerData } from './$types';
+	import ShortUrl from '$lib/components/layout/@me/short-urls/ShortURL.svelte';
 
 	const { data, children }: { data: LayoutServerData; children: Snippet } = $props();
 </script>
 
-<div class="w-full h-90lvh md:h-100vh">
+<div class="w-full h-90lvh md:h-100vh mt-1">
 	<div class="flex flex-row">
 		<section class="flex flex-col gap-2 max-h-100lvh of-y-auto w-full hide-scrollbar mr-1 pb-2">
-			<div class="h-16lvh md:h-16vh w-full mb-6">
-				<h1 class="text-lg font-bold my-2">Short URLs</h1>
-
+			<div class="w-full mb-2 flex flex-col gap-1">
 				<ExplainBox
 					headline="Privileged Section"
 					text="This section requires authorized access. Please contact the Ayako development team for permissions."
 				/>
+
+				<ExplainBox
+					headline="What is this?"
+					text="Here you can see, delete and create your Short-URLs and track their usage."
+				/>
 			</div>
 
 			{#each data.shortURLs as url, i}
-				<div
-					class="flex flex-col justify-between text-3 px-2 py-1 rounded-md mr-1 bg-main-darker/50"
-					class:bg-main-darker={page.params?.id !== url.id}
-				>
-					<div class="flex flex-row justify-start items-start my-1">
-						{i + 1}.
-						<button
-							class="ml-2 group flex flex-row justify-center items-center gap-1"
-							onclick={() => navigator.clipboard.writeText(`https://wzxy.org/${url.id}`)}
-						>
-							wzxy.org/{url.id}
-							<span class="i-tabler-copy block group-hover:block hidden"></span>
-						</button>
-						<button class="btn-danger justify-self-end self-end ml-auto"> Delete </button>
-						<a
-							class="btn-secondary justify-self-end self-end ml-2"
-							href="/@me/short-urls/{url.id}"
-							data-sveltekit-preload-data="hover"
-						>
-							Statistics
-						</a>
-					</div>
-
-					<div class="flex flex-row justify-between items-center">
-						<button
-							class="group flex flex-row justify-start items-center gap-1 max-w-50 whitespace-nowrap overflow-hidden"
-							onclick={() => navigator.clipboard.writeText(`https://wzxy.org/${url.id}`)}
-						>
-							<span class="truncate">
-								{url.forward.replace('https://', '').replace('http://', '')}
-							</span>
-							<span class="i-tabler-copy block group-hover:block hidden flex-shrink-0"></span>
-						</button>
-						Uses: {url.uses}
-					</div>
-				</div>
+				<ShortUrl {i} {url} />
 			{/each}
 		</section>
 

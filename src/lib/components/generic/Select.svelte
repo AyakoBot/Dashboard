@@ -28,8 +28,8 @@
 		ontyping,
 		selectedOptions = $bindable([]),
 	}: {
-		type: TSelectMenuType;
-		class: string;
+		type?: TSelectMenuType;
+		class?: string;
 		options: TOption[];
 		maxOpts: number;
 		minOpts: number;
@@ -39,7 +39,7 @@
 		id?: string;
 		onupdate?: (v: TOption[]) => void;
 		ontyping?: (v: string) => void;
-		selectedOptions: TOption[];
+		selectedOptions?: TOption[];
 	} = $props();
 
 	const single = maxOpts === 1;

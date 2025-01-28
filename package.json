@@ -10,7 +10,7 @@
 		"dev": "rm -rf ./.svelte-kit && vite dev --port 5173",
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
-		"preview": "vite preview",
+		"preview": "vite preview  --port 5173",
 		"start": "rm -r ./.svelte-kit && pnpm build && pnpm preview --port 5173"
 	},
 	"dependencies": {

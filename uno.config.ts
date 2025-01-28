@@ -52,6 +52,8 @@ export default defineConfig({
 		[/^column-width-(\d+)$/, ([, d]) => ({ 'column-width': `${Number(d) / 4}rem` })],
 	],
 	shortcuts: {
+		tooltiptext:
+			'w-fit bg-main-lighter color-main-text text-center p-1 rounded-md absolute group-hover:block hidden bottom-105% box-shadow-main border-main-darkest z-1 select-none hover:hidden',
 		mention: 'bg-[rgba(88,101,242,0.3)] px-1 rounded-md',
 		'btn-base':
 			'min-w-15 duration-200 transition-all ease-in-out text-white rounded-md px-4 hover:text-white! disabled:cursor-not-allowed',
@@ -71,7 +73,7 @@ export default defineConfig({
 		'btn-extra-secondary-outlined':
 			'btn-base border-1 border-solid border-secondary hover:bg-secondary hover:text-white',
 		'btn-extra-link-outlined':
-			'btn-base border-1 border-solid border-secondary hover:bg-secondary hover:text-white  flex flex-row gap-2 justify-center items-center',
+			'btn-base border-1 border-solid border-secondary hover:bg-secondary hover:text-white flex flex-row gap-2 justify-center items-center',
 	},
 	transformers: [transformerDirectives(), transformerVariantGroup()],
 	content: {
