@@ -90,9 +90,10 @@ type GETEndpointMap = {
 	// URL Scan
 	'/url-scan/:scanId': never;
 
-	// ++++ Undocumented ++++
 	// RP
 	'/@me/rp': GETSelfRPBlocks;
+
+	// ++++ Undocumented ++++
 	// Users
 	'/users/search': GETSearchUsers;
 	// Reminders
@@ -107,10 +108,10 @@ type POSTEndpointMap = {
 	'/punishments/:punishmentId/appeal': never;
 	// URL Scan
 	'/url-scan': never;
-
-	// ++++ Undocumented ++++
 	// RP
 	'/@me/rp': never;
+
+	// ++++ Undocumented ++++
 	// Reminder
 	'/reminders': POSTReminder;
 };
@@ -129,16 +130,16 @@ type PATCHEndpointMap = {
 	// ++++ Documented ++++
 	// URL Scan
 	'/url-scan': PATCHUrlScan;
-
-	// ++++ Undocumented ++++
 	// RP
 	'/@me/rp': never;
 };
 
 type DELETEEndpointMap = {
-	// ++++ Undocumented ++++
+	// ++++ Documented ++++
 	// RP
 	'/@me/rp': never;
+
+	// ++++ Undocumented ++++
 	// Reminder
 	'/reminders/:reminderId': never;
 };
