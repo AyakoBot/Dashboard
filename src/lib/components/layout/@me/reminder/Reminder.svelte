@@ -10,7 +10,7 @@
 		ondelete(reminder.id);
 
 		makeRequest(
-			{ method: 'DELETE', path: '/reminders/:reminderId' },
+			{ method: 'DELETE', path: '/@me/reminders/:reminderId' },
 			{ reminderId: String(reminder.id) },
 			fetch,
 		);
@@ -37,8 +37,8 @@
 		</div>
 
 		<div class="flex flex-row gap-1">
-			<Timestamp time={reminder.endtime} type="R" />
-			(<Timestamp time={reminder.endtime} type="f" />)
+			<Timestamp time={reminder.endTime} type="R" />
+			(<Timestamp time={reminder.endTime} type="f" />)
 		</div>
 	</div>
 </div>

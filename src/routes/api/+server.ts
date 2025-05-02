@@ -60,10 +60,13 @@ const handler: RequestHandler = async (req) => {
 					: null,
 			method: method ?? req.request.method,
 			credentials: 'include',
+		}).catch((e) => {
+			console.error('Fetch error:', e);
+			throw e;
 		});
 
 		if (!response.ok) {
-			console.log(await response.text(), validBody.data.body);
+			// console.log(await response.text(), validBody.data.body);
 			return error(response.status, response.statusText);
 		}
 

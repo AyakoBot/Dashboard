@@ -1,9 +1,8 @@
 // place files you want to import through the `$lib` alias in this folder.
-import '@unocss/reset/normalize.css';
-import '@unocss/reset/sanitize/sanitize.css';
-import '@unocss/reset/sanitize/assets.css';
 import '@unocss/reset/eric-meyer.css';
-import '@unocss/reset/tailwind.css';
+import '@unocss/reset/normalize.css';
+import '@unocss/reset/sanitize/assets.css';
+import '@unocss/reset/sanitize/sanitize.css';
 import '@unocss/reset/tailwind.css';
 
 export type ConsentCookie = {
@@ -36,23 +35,21 @@ import type { GETResponse as GETqotd } from '@ayako/server/src/routes/v1/qotd/+s
 // Linked-Roles Decoration
 import type { GETResponse as GETLinkedRolesDecoration } from '@ayako/server/src/routes/v1/guilds/[guildId]/linked-roles/[settingsId]/decoration/+server';
 // Bot
-import type { GETResponse as GETBotStats } from '@ayako/server/src/routes/v1/bot/stats/+server';
-import type { GETResponse as GETBotReviews } from '@ayako/server/src/routes/v1/bot/reviews/+server';
-import type { GETResponse as GETBotFeatures } from '@ayako/server/src/routes/v1/bot/features/+server';
-import type { GETResponse as GETBotContributers } from '@ayako/server/src/routes/v1/bot/contributers/+server';
 import type { GETResponse as GETBotArtworks } from '@ayako/server/src/routes/v1/bot/artworks/+server';
+import type { GETResponse as GETBotContributers } from '@ayako/server/src/routes/v1/bot/contributers/+server';
+import type { GETResponse as GETBotFeatures } from '@ayako/server/src/routes/v1/bot/features/+server';
+import type { GETResponse as GETBotReviews } from '@ayako/server/src/routes/v1/bot/reviews/+server';
+import type { GETResponse as GETBotStats } from '@ayako/server/src/routes/v1/bot/stats/+server';
 // URL Scan
-import type { PUTResponse as PUTUrlScan } from '@ayako/server/src/routes/v1/url-scan/+server';
-import type { PATCHResponse as PATCHUrlScan } from '@ayako/server/src/routes/v1/url-scan/+server';
+import type { PATCHResponse as PATCHUrlScan, PUTResponse as PUTUrlScan } from '@ayako/server/src/routes/v1/url-scan/+server';
 // RP
 import type { GETResponse as GETSelfRPBlocks } from '@ayako/server/src/routes/v1/@me/rp/+server';
 // Users
 import type { PUTResponse as PUTFindUsers } from '@ayako/server/src/routes/v1/users/find-many/+server';
 import type { GETResponse as GETSearchUsers } from '@ayako/server/src/routes/v1/users/search/+server';
 // Reminders
-import type { GETResponse as GETReminders } from '@ayako/server/src/routes/v1/@me/reminders/+server';
-import type { POSTResponse as POSTReminder } from '@ayako/server/src/routes/v1/reminders/+server';
-import type { GETResponse as GETReminder } from '@ayako/server/src/routes/v1/reminders/[reminderId]/+server';
+import type { GETResponse as GETReminders, POSTResponse as POSTReminder } from '@ayako/server/src/routes/v1/@me/reminders/+server';
+import type { GETResponse as GETReminder } from '@ayako/server/src/routes/v1/@me/reminders/[reminderId]/+server';
 
 type GETEndpointMap = {
 	// ++++ Documented ++++
@@ -98,7 +95,7 @@ type GETEndpointMap = {
 	'/users/search': GETSearchUsers;
 	// Reminders
 	'/@me/reminders': GETReminders;
-	'/reminders/:reminderId': GETReminder;
+	'/@me/reminders/:reminderId': GETReminder;
 };
 
 type POSTEndpointMap = {
@@ -113,7 +110,7 @@ type POSTEndpointMap = {
 
 	// ++++ Undocumented ++++
 	// Reminder
-	'/reminders': POSTReminder;
+	'/@me/reminders': POSTReminder;
 };
 
 type PUTEndpointMap = {
@@ -141,7 +138,7 @@ type DELETEEndpointMap = {
 
 	// ++++ Undocumented ++++
 	// Reminder
-	'/reminders/:reminderId': never;
+	'/@me/reminders/:reminderId': never;
 };
 
 export type EndpointMap = {
@@ -161,5 +158,5 @@ export type EndpointArgMap = {
 	'/punishments/:punishmentId/appeal': 'punishmentId';
 	'/punishments/:punishmentId/status': 'punishmentId';
 	'/url-scan/:scanId': 'scanId';
-	'/reminders/:reminderId': 'reminderId';
+	'/@me/reminders/:reminderId': 'reminderId';
 } & Record<string, never>;

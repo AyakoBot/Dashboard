@@ -29,5 +29,8 @@ export default <M extends keyof EndpointMap, P extends keyof EndpointMap[M] & ke
 					if (!text) return null;
 					return JSON.parse(text) as EndpointMap[M][P] | null;
 				})
-			: null;
+			: r.text().then((text) => {
+					console.log(text);
+					return null;
+				});
 	});

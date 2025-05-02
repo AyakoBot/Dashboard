@@ -15,13 +15,16 @@ export const actions = {
 		const date = formData.get('date') as string;
 		const time = formData.get('time') as string;
 		const reason = formData.get('reason') as string;
+		const startTime = formData.get('startTime') as string;
+		const localDateTime = new Date(`${date}T${time}:00.000`);
 
 		makeRequest(
 			{
 				method: 'POST',
-				path: '/reminders',
-				content: reason,
-				endtime: new Date(`${date}T${time}:00.000Z`).getTime(),
+				path: '/@me/reminders',
+				reason,
+				endTime: localDateTime.getTime(),
+				startTime: Number(startTime),
 			},
 			{},
 			event.fetch,

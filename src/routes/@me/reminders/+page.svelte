@@ -16,7 +16,12 @@
 	const ondelete = (id: number) => {
 		if (!reminders) return;
 
-		reminders = reminders.filter((r) => r.id !== id);
+		const temp = reminders.filter((r) => r.id !== id);
+		reminders = [];
+
+		setTimeout(() => {
+			reminders = temp;
+		}, 1);
 	};
 </script>
 
@@ -31,7 +36,7 @@
 </div>
 
 <div class="py-3">
-	{#each (reminders || []).toSorted((a, b) => a.endtime - b.endtime) as reminder}
+	{#each (reminders || []).toSorted((a, b) => a.endTime - b.endTime) as reminder}
 		<Reminder {reminder} {ondelete} />
 	{/each}
 </div>
@@ -42,13 +47,19 @@
 			use:enhance={(event) => {
 				if (!reminders) return;
 
-				reminders.push({
-					channelid: 'Website',
-					endtime: new Date(event.formData.get('date') + 'T' + event.formData.get('time')).getTime(),
-					id: reminders.length + 1,
+				const temp = reminders;
+				reminders = [];
+				temp.push({
+					channelId: 'Website',
+					endTime: new Date(event.formData.get('date') + 'T' + event.formData.get('time')).getTime(),
+					id: Number(event.formData.get('startTime')),
 					reason: event.formData.get('reason') as string,
-					userid: 'Website',
+					userId: 'Website',
 				});
+
+				setTimeout(() => {
+					reminders = temp;
+				}, 1);
 
 				open = false;
 			}}
@@ -65,6 +76,8 @@
 				required
 				id="reason"
 			/>
+
+			<input type="hidden" value={Date.now()} name="startTime" />
 
 			<div class="flex flex-col justify-between h-full">
 				<div class="flex flex-row justify-between items-center flex-wrap gap-2 mt-5">
