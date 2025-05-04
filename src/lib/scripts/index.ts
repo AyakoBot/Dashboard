@@ -107,10 +107,10 @@ type POSTEndpointMap = {
 	'/url-scan': never;
 	// RP
 	'/@me/rp': never;
-
-	// ++++ Undocumented ++++
 	// Reminder
 	'/@me/reminders': POSTReminder;
+
+	// ++++ Undocumented ++++
 };
 
 type PUTEndpointMap = {
@@ -135,10 +135,10 @@ type DELETEEndpointMap = {
 	// ++++ Documented ++++
 	// RP
 	'/@me/rp': never;
-
-	// ++++ Undocumented ++++
 	// Reminder
 	'/@me/reminders/:reminderId': never;
+
+	// ++++ Undocumented ++++
 };
 
 export type EndpointMap = {
