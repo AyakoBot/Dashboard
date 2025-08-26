@@ -2,7 +2,7 @@ import { PUBLIC_HOSTNAME, PUBLIC_ID } from '$env/static/public';
 import { redirect, type Actions } from '@sveltejs/kit';
 
 const baseLoginURL = `https://discord.com/oauth2/authorize?client_id=${PUBLIC_ID}&response_type=code&redirect_uri=${PUBLIC_HOSTNAME}%2Flogin&scope=`;
-const mandatoryScopes = ['identify', 'guilds.join'];
+const mandatoryScopes = ['identify', 'guilds'];
 
 export const actions = {
 	login: async (event) => {

@@ -66,7 +66,10 @@ const handler: RequestHandler = async (req) => {
 		});
 
 		if (!response.ok) {
-			// console.log(await response.text(), validBody.data.body);
+			const responseText = await response.text();
+			if (!responseText.includes('Required OAuth2 scope is missing')) {
+				console.log(responseText, validBody.data.body);
+			}
 			return error(response.status, response.statusText);
 		}
 
@@ -77,7 +80,9 @@ const handler: RequestHandler = async (req) => {
 			},
 		});
 	} catch (e) {
-		console.error('API request error:', e);
+		if (e instanceof Error && !e.message?.includes('403')) {
+			console.error('API request error:', e);
+		}
 		return error(500, 'Internal server error');
 	}
 };

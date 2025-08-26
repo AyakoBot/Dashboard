@@ -2,12 +2,11 @@ import { PUBLIC_HOSTNAME } from '$env/static/public';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => {
-	const basicCookieOptions: Parameters<typeof event.cookies.set>[2] = {
+	const basicCookieOptions: Parameters<typeof event.cookies.delete>[1] = {
 		path: '/',
-		domain: PUBLIC_HOSTNAME.replace('https://', ''),
 		sameSite: 'strict',
 		httpOnly: false,
-		secure: true,
+		secure: PUBLIC_HOSTNAME.includes('https'),
 	};
 
 	event.cookies.delete('discord-id', basicCookieOptions);

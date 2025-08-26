@@ -31,11 +31,10 @@ export const load: PageServerLoad = async (event) => {
 	const basicCookieOptions: Parameters<typeof event.cookies.set>[2] = {
 		expires: new Date(Date.now() + json.expires * 1000),
 		path: '/',
-		domain: PUBLIC_HOSTNAME.replace('https://', ''),
 		maxAge: json.expires,
 		sameSite: 'strict',
 		httpOnly: false,
-		secure: true,
+		secure: PUBLIC_HOSTNAME.includes('https'),
 	};
 
 	event.cookies.set('discord-id', json.id, basicCookieOptions);

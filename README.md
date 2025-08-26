@@ -16,6 +16,7 @@ npm create svelte@latest my-app
 
 ## Developing
 
+./CODE_RULES.md must be followed.
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
 ```bash

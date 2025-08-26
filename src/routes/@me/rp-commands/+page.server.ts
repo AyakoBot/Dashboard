@@ -1,6 +1,6 @@
-import makeRequest from '$lib/scripts/util/makeRequest';
-import interactions from '@ayako/bot/src/BaseClient/Other/constants/interactions';
-import type { PageServerLoad } from './$types';
+import makeRequest from '$lib/scripts/util/makeRequest.js';
+import interactions from '@ayako/bot/src/BaseClient/Other/constants/interactions.js';
+import type { PageServerLoad } from './$types.js';
 
 export const load: PageServerLoad = async (event) => {
 	const allCommands = [...new Set(interactions.map((i) => i.aliasOf))].map((i) => ({
