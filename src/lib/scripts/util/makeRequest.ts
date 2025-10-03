@@ -30,7 +30,11 @@ export default <M extends keyof EndpointMap, P extends keyof EndpointMap[M] & ke
 					return JSON.parse(text) as EndpointMap[M][P] | null;
 				})
 			: r.text().then((text) => {
-					console.log(text);
+					const e = new Error(text);
+					e.cause = `${body.method} ${body.path}`;
+
+					console.log(e.cause, e.message);
+					console.log(e.stack);
 					return null;
 				});
 	});
