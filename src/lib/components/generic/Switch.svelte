@@ -1,66 +1,127 @@
 <script lang="ts">
-	let {
-		title,
-		name,
-		checked = $bindable(false),
-		required = false,
-		type = 'on/off',
-		disabled = false,
-		oncheck,
-	}: {
+	import clsx from 'clsx';
+
+	interface SwitchProps {
 		title?: string;
+		description?: string;
 		name: string;
 		checked?: boolean;
 		required?: boolean;
-		type?: 'y/n' | 'on/off';
 		disabled?: boolean;
-		oncheck?: (name: string, state: boolean) => void;
-	} = $props();
+		size?: 'sm' | 'md' | 'lg';
+		onchange?: (checked: boolean) => void;
+	}
+
+	let {
+		title,
+		description = '',
+		name,
+		checked = $bindable(false),
+		required = false,
+		disabled = false,
+		size = 'md',
+		onchange,
+	}: SwitchProps = $props();
+
+	const handleToggle = () => {
+		if (!disabled) {
+			checked = !checked;
+			onchange?.(checked);
+		}
+	};
 </script>
 
-<div class:cursor-not-allowed={disabled} class:op-60={disabled}>
-	<label
-		class="flex items-center relative w-max cursor-pointer select-none relative"
-		class:cursor-not-allowed={disabled}
-	>
-		{#if title}
-			<span class="mr-3">
-				{title}
-			</span>
-		{/if}
+<div class="inline-flex items-center gap-3">
+	{#if title || description}
+		<div class="flex-1">
+			{#if title}
+				<label 
+					for={name}
+					class={clsx(
+						'block font-medium text-main-text',
+						disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'
+					)}
+				>
+					{title}
+					{#if required}
+						<span class="text-danger ml-1" aria-label="required">*</span>
+					{/if}
+				</label>
+			{/if}
+			{#if description}
+				<p class="text-sm text-muted-text mt-1">
+					{description}
+				</p>
+			{/if}
+		</div>
+	{/if}
 
-		<input
-			{disabled}
-			{required}
-			{name}
-			type="checkbox"
-			class="appearance-none transition-colors cursor-pointer w-14 h-7 rounded-full focus:outline-none"
-			class:cursor-not-allowed!={disabled}
-			class:bg-check-checked={checked}
-			class:bg-check-unchecked={!checked}
-			onchange={() => oncheck?.(name, checked)}
-			bind:checked
-		/>
+	<!-- Hidden checkbox for form submission -->
+	<input
+		type="checkbox"
+		{name}
+		{checked}
+		{disabled}
+		{required}
+		class="sr-only"
+		tabindex="-1"
+		aria-hidden="true"
+	/>
+	
+	<button
+		id={name}
+		type="button"
+		role="switch"
+		aria-checked={checked}
+		aria-label={title || 'Toggle switch'}
+		{disabled}
+		onclick={handleToggle}
+		class={clsx(
+			'relative inline-flex shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out',
+			'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-main-dark',
+			disabled && 'opacity-50 cursor-not-allowed',
+			checked ? 'bg-primary-500' : 'bg-main-lighter',
+			size === 'sm' && 'h-6 w-10',
+			size === 'md' && 'h-8 w-13',
+			size === 'lg' && 'h-9 w-15'
+		)}
+	>
+		<span class="sr-only">{checked ? 'On' : 'Off'}</span>
 		<span
-			class="absolute font-medium uppercase text-10px right-2 top-1.6"
-			class:text-main-text={checked}
-			class:text-black={!checked}
-			class:cursor-not-allowed={disabled}
+			aria-hidden="true"
+			class={clsx(
+				'pointer-events-none absolute left-0.5 top-0.5 inline-block transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out',
+				checked ? (
+					size === 'sm' ? 'translate-x-4' :
+					size === 'md' ? 'translate-x-5' :
+					'translate-x-7'
+				) : 'translate-x-0',
+				size === 'sm' && 'h-4 w-4',
+				size === 'md' && 'h-6 w-6',
+				size === 'lg' && 'h-7 w-7'
+			)}
 		>
-			{type === 'y/n' ? 'no' : 'off'}
+			{#if checked}
+				<span class="flex h-full w-full items-center justify-center">
+					<svg class={clsx(
+						'text-primary-500',
+						size === 'sm' && 'h-2 w-2',
+						size === 'md' && 'h-3 w-3',
+						size === 'lg' && 'h-3.5 w-3.5'
+					)} fill="currentColor" viewBox="0 0 20 20">
+						<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+					</svg>
+				</span>
+			{/if}
 		</span>
-		<span
-			class="absolute font-medium uppercase text-10px right-8 top-1.6"
-			class:text-main-text={checked}
-			class:text-black={!checked}
-			class:cursor-not-allowed={disabled}
-		>
-			{type === 'y/n' ? 'yes' : 'on'}
-		</span>
-		<span
-			class="w-6 h-6 right-7.2 absolute rounded-full transition ease-in-out duration-.15s bg-neutral-100"
-			class:translate-x-6.4={checked}
-			class:cursor-not-allowed={disabled}
-		></span>
-	</label>
+	</button>
 </div>
+
+<style>
+	/* Ensure smooth transitions and override global min-height */
+	button {
+		-webkit-tap-highlight-color: transparent;
+		min-height: unset !important;
+		min-width: unset !important;
+	}
+</style>

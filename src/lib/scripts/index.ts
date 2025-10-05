@@ -6,10 +6,10 @@ import '@unocss/reset/sanitize/sanitize.css';
 import '@unocss/reset/tailwind.css';
 
 export type ConsentCookie = {
-	'strictly-necessary': true;
-	functionality: boolean;
-	tracking: boolean;
-	targeting: boolean;
+ 'strictly-necessary': true;
+ functionality: boolean;
+ tracking: boolean;
+ targeting: boolean;
 };
 
 // ShortURLs
@@ -52,111 +52,111 @@ import type { GETResponse as GETReminders, POSTResponse as POSTReminder } from '
 import type { GETResponse as GETReminder } from '@ayako/server/src/routes/v1/@me/reminders/[reminderId]/+server';
 
 type GETEndpointMap = {
-	// ++++ Documented ++++
-	// @me
-	'/@me': GETSelf;
-	'/@me/guilds': GETSelfGuilds;
+ // ++++ Documented ++++
+ // @me
+ '/@me': GETSelf;
+ '/@me/guilds': GETSelfGuilds;
 
-	'/@me/short-urls': GETShortUrls;
-	'/@me/short-urls/:id/uses': GETShortUrlUses;
+ '/@me/short-urls': GETShortUrls;
+ '/@me/short-urls/:id/uses': GETShortUrlUses;
 
-	'/@me/punishments': GETPunishments;
-	'/@me/appeals/guilds': GETAppealsGuilds;
+ '/@me/punishments': GETPunishments;
+ '/@me/appeals/guilds': GETAppealsGuilds;
 
-	// Punishments
-	'/punishments/:punishmentId/status': GETPunishmentStatus;
-	'/punishments/:punishmentId': GETPunishment;
+ // Punishments
+ '/punishments/:punishmentId/status': GETPunishmentStatus;
+ '/punishments/:punishmentId': GETPunishment;
 
-	// Guilds
-	'/guilds': GETGuilds;
-	'/guilds/:guildId': GETGuild;
-	'/guilds/:guildId/lb': GETGuildLeaderboard;
-	'/guilds/:guildId/settings/appeal-questions': GETGuildAppealQuestions;
-	'/guilds/:guildId/linked-roles/:settingsId/decoration': GETLinkedRolesDecoration;
+ // Guilds
+ '/guilds': GETGuilds;
+ '/guilds/:guildId': GETGuild;
+ '/guilds/:guildId/lb': GETGuildLeaderboard;
+ '/guilds/:guildId/settings/appeal-questions': GETGuildAppealQuestions;
+ '/guilds/:guildId/linked-roles/:settingsId/decoration': GETLinkedRolesDecoration;
 
-	// QOTD
-	'/qotd': GETqotd;
+ // QOTD
+ '/qotd': GETqotd;
 
-	// Bot
-	'/bot/stats': GETBotStats;
-	'/bot/reviews': GETBotReviews;
-	'/bot/features': GETBotFeatures;
-	'/bot/contributers': GETBotContributers;
-	'/bot/artworks': GETBotArtworks;
+ // Bot
+ '/bot/stats': GETBotStats;
+ '/bot/reviews': GETBotReviews;
+ '/bot/features': GETBotFeatures;
+ '/bot/contributers': GETBotContributers;
+ '/bot/artworks': GETBotArtworks;
 
-	// URL Scan
-	'/url-scan/:scanId': never;
+ // URL Scan
+ '/url-scan/:scanId': never;
 
-	// RP
-	'/@me/rp': GETSelfRPBlocks;
+ // RP
+ '/@me/rp': GETSelfRPBlocks;
 
-	// ++++ Undocumented ++++
-	// Users
-	'/users/search': GETSearchUsers;
-	// Reminders
-	'/@me/reminders': GETReminders;
-	'/@me/reminders/:reminderId': GETReminder;
+ // ++++ Undocumented ++++
+ // Users
+ '/users/search': GETSearchUsers;
+ // Reminders
+ '/@me/reminders': GETReminders;
+ '/@me/reminders/:reminderId': GETReminder;
 };
 
 type POSTEndpointMap = {
-	// ++++ Documented ++++
-	// Appeals
-	'/@me/auth/generate': POSTAuthGenerate;
-	'/punishments/:punishmentId/appeal': never;
-	// URL Scan
-	'/url-scan': never;
-	// RP
-	'/@me/rp': never;
-	// Reminder
-	'/@me/reminders': POSTReminder;
+ // ++++ Documented ++++
+ // Appeals
+ '/@me/auth/generate': POSTAuthGenerate;
+ '/punishments/:punishmentId/appeal': never;
+ // URL Scan
+ '/url-scan': never;
+ // RP
+ '/@me/rp': never;
+ // Reminder
+ '/@me/reminders': POSTReminder;
 
-	// ++++ Undocumented ++++
+ // ++++ Undocumented ++++
 };
 
 type PUTEndpointMap = {
-	// ++++ Documented ++++
-	// URL Scan
-	'/url-scan': PUTUrlScan;
+ // ++++ Documented ++++
+ // URL Scan
+ '/url-scan': PUTUrlScan;
 
-	// ++++ Undocumented ++++
-	// Users
-	'/users/find-many': PUTFindUsers;
+ // ++++ Undocumented ++++
+ // Users
+ '/users/find-many': PUTFindUsers;
 };
 
 type PATCHEndpointMap = {
-	// ++++ Documented ++++
-	// URL Scan
-	'/url-scan': PATCHUrlScan;
-	// RP
-	'/@me/rp': never;
+ // ++++ Documented ++++
+ // URL Scan
+ '/url-scan': PATCHUrlScan;
+ // RP
+ '/@me/rp': never;
 };
 
 type DELETEEndpointMap = {
-	// ++++ Documented ++++
-	// RP
-	'/@me/rp': never;
-	// Reminder
-	'/@me/reminders/:reminderId': never;
+ // ++++ Documented ++++
+ // RP
+ '/@me/rp': never;
+ // Reminder
+ '/@me/reminders/:reminderId': never;
 
-	// ++++ Undocumented ++++
+ // ++++ Undocumented ++++
 };
 
 export type EndpointMap = {
-	GET: GETEndpointMap;
-	POST: POSTEndpointMap;
-	PUT: PUTEndpointMap;
-	PATCH: PATCHEndpointMap;
-	DELETE: DELETEEndpointMap;
+ GET: GETEndpointMap;
+ POST: POSTEndpointMap;
+ PUT: PUTEndpointMap;
+ PATCH: PATCHEndpointMap;
+ DELETE: DELETEEndpointMap;
 };
 
 export type EndpointArgMap = {
-	'/@me/short-urls/:id/uses': 'id';
-	'/guilds/:guildId/settings/appeal-questions': 'guildId';
-	'/guilds/:guildId': 'guildId';
-	'/guilds/:guildId/lb': 'guildId';
-	'/guilds/:guildId/linked-roles/:settingsId/decoration': 'guildId' | 'settingsId';
-	'/punishments/:punishmentId/appeal': 'punishmentId';
-	'/punishments/:punishmentId/status': 'punishmentId';
-	'/url-scan/:scanId': 'scanId';
-	'/@me/reminders/:reminderId': 'reminderId';
+ '/@me/short-urls/:id/uses': 'id';
+ '/guilds/:guildId/settings/appeal-questions': 'guildId';
+ '/guilds/:guildId': 'guildId';
+ '/guilds/:guildId/lb': 'guildId';
+ '/guilds/:guildId/linked-roles/:settingsId/decoration': 'guildId' | 'settingsId';
+ '/punishments/:punishmentId/appeal': 'punishmentId';
+ '/punishments/:punishmentId/status': 'punishmentId';
+ '/url-scan/:scanId': 'scanId';
+ '/@me/reminders/:reminderId': 'reminderId';
 } & Record<string, never>;

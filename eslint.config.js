@@ -253,7 +253,7 @@ export default ts.config(
    'svelte/valid-compile': 'error',
    'svelte/no-at-html-tags': 'error',
    'svelte/no-at-debug-tags': 'error',
-   'svelte/indent': ['error', { indent: 'tab', switchCase: 1 }],
+   'svelte/indent': ['error', { indent: 1, switchCase: 1 }],
   },
  },
 );

@@ -5,7 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"build": "vite build",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check": "svelte-kit sync && pnpx sv check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"dev": "rm -rf ./.svelte-kit && vite dev --port 5173",
 		"format": "prettier --write .",
@@ -44,6 +44,7 @@
 		"prettier": "^3.5.3",
 		"prettier-plugin-svelte": "^3.3.3",
 		"svelte": "5.37.3",
+		"svelte-check": "4.3.2",
 		"typescript": "^5.8.3",
 		"unocss": "^66.4.1",
 		"unocss-preset-animations": "^1.2.1",
