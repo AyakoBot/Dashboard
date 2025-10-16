@@ -10,13 +10,12 @@ export const load: LayoutServerLoad = async (req) => {
  const token = req.cookies.get('discord-token');
  const isDev = !!req.cookies.get('is-dev');
 
- const user = token && username && id 
-  ? { username, avatar: avatar || null, id, hasSeenWelcome: false } 
-  : null;
+ const user =
+  token && username && id ? { username, avatar: avatar || null, id, hasSeenWelcome: false } : null;
 
  return {
   guilds: guildsRes || [],
   user,
-  isDev,
+  isDev
  };
 };

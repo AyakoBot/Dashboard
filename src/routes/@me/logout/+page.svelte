@@ -3,10 +3,10 @@
  import { page } from '$app/state';
 
  onMount(() => {
- if (!page.url?.searchParams.has('logout')) return;
+  if (!page.url?.searchParams.has('logout')) return;
 
- setTimeout(() => {
-  location.href = '/?reload=true';
- });
+  setTimeout(() => {
+   location.href = '/?reload=true';
+  });
  });
 </script>

@@ -15,13 +15,13 @@ export const load: PageServerLoad = async (event) => {
  const state = event.url.searchParams.get('state');
 
  const res = await event.fetch(
- `${PUBLIC_API.split(/\//g)
-  .filter((p) => !!p.length)
-  .slice(0, 2)
-  .join('//')}/login${state ? `?state=${state}&` : '?'}redirect_uri=${PUBLIC_HOSTNAME}/login`,
- {
-  headers: { Authorization: `Bearer ${code}` },
- },
+  `${PUBLIC_API.split(/\//g)
+   .filter((p) => !!p.length)
+   .slice(0, 2)
+   .join('//')}/login${state ? `?state=${state}&` : '?'}redirect_uri=${PUBLIC_HOSTNAME}/login`,
+  {
+   headers: { Authorization: `Bearer ${code}` }
+  }
  );
 
  if (!res.ok) throw redirect(307, '/login');
@@ -29,12 +29,12 @@ export const load: PageServerLoad = async (event) => {
  const json = (await res.json()) as GETLogin;
 
  const basicCookieOptions: Parameters<typeof event.cookies.set>[2] = {
- expires: new Date(Date.now() + json.expires * 1000),
- path: '/',
- maxAge: json.expires,
- sameSite: 'strict',
- httpOnly: false,
- secure: PUBLIC_HOSTNAME.includes('https'),
+  expires: new Date(Date.now() + json.expires * 1000),
+  path: '/',
+  maxAge: json.expires,
+  sameSite: 'strict',
+  httpOnly: false,
+  secure: PUBLIC_HOSTNAME.includes('https')
  };
 
  event.cookies.set('discord-id', json.id, basicCookieOptions);

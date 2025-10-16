@@ -10,24 +10,24 @@ export const load: PageServerLoad = async (event) => {
 
 export const actions = {
  reminder: async (event) => {
- const formData = await event.request.formData();
+  const formData = await event.request.formData();
 
- const date = formData.get('date') as string;
- const time = formData.get('time') as string;
- const reason = formData.get('reason') as string;
- const startTime = formData.get('startTime') as string;
- const localDateTime = new Date(`${date}T${time}:00.000`);
+  const date = formData.get('date') as string;
+  const time = formData.get('time') as string;
+  const reason = formData.get('reason') as string;
+  const startTime = formData.get('startTime') as string;
+  const localDateTime = new Date(`${date}T${time}:00.000`);
 
- makeRequest(
-  {
-  method: 'POST',
-  path: '/@me/reminders',
-  reason,
-  endTime: localDateTime.getTime(),
-  startTime: Number(startTime),
-  },
-  {},
-  event.fetch,
- );
- },
+  makeRequest(
+   {
+    method: 'POST',
+    path: '/@me/reminders',
+    reason,
+    endTime: localDateTime.getTime(),
+    startTime: Number(startTime)
+   },
+   {},
+   event.fetch
+  );
+ }
 } satisfies Actions;

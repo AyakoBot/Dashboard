@@ -7,7 +7,7 @@ const mandatoryScopes = ['identify', 'guilds'];
 
 export const load: PageServerLoad = async ({ parent }) => {
  const parentData = await parent();
- 
+
  return {
   user: parentData.user,
   reminders: [],
@@ -27,5 +27,5 @@ export const actions = {
    .map(([k]) => k);
 
   throw redirect(307, `${baseLoginURL}${[...mandatoryScopes, ...acceptedScopes].join('+')}`);
- },
+ }
 } satisfies Actions;

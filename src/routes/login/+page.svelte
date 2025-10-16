@@ -1,3 +1,1 @@
-<div>
- Give us a mo'
-</div>
+<div>Give us a mo'</div>

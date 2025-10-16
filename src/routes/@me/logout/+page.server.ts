@@ -3,10 +3,10 @@ import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => {
  const basicCookieOptions: Parameters<typeof event.cookies.delete>[1] = {
- path: '/',
- sameSite: 'strict',
- httpOnly: false,
- secure: PUBLIC_HOSTNAME.includes('https'),
+  path: '/',
+  sameSite: 'strict',
+  httpOnly: false,
+  secure: PUBLIC_HOSTNAME.includes('https')
  };
 
  event.cookies.delete('discord-id', basicCookieOptions);
