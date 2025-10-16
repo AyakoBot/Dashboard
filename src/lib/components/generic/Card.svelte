@@ -29,10 +29,8 @@
   onclick,
   ariaLabel = '',
   ariaDescribedby = '',
-  role = '',
+  role = ''
  }: CardProps = $props();
-
-
 
  const cardClasses = clsx(
   'rounded-2xl transition-all duration-300',
@@ -41,7 +39,8 @@
   variant === 'gradient' && 'bg-gradient-to-br from-main-dark to-main-darker border border-white/5',
   variant === 'outlined' && 'border-2 border-white/10 bg-transparent',
   hoverable && 'hover:shadow-xl hover:scale-[1.02] hover:border-white/10',
-  clickable && 'cursor-pointer active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 focus:ring-offset-main-dark',
+  clickable &&
+   'cursor-pointer active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 focus:ring-offset-main-dark',
   className
  );
 
@@ -77,17 +76,24 @@
      </p>
     {/if}
     {#if title || description}
-     <div class="mt-3 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" role="separator" aria-hidden="true"></div>
+     <div
+      class="mt-3 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
+      role="separator"
+      aria-hidden="true"
+     ></div>
     {/if}
    </div>
   {/if}
-  
-  <div class="animate-fade-in p-4" style="border-radius: 10px; background: rgba(255, 255, 255, 0.02);">
+
+  <div
+   class="animate-fade-in p-4"
+   style="border-radius: 10px; background: rgba(255, 255, 255, 0.02);"
+  >
    {@render children()}
   </div>
  </button>
 {:else}
- <div 
+ <div
   class={cardClasses}
   id={cardId}
   role={role || undefined}
@@ -107,12 +113,19 @@
      </p>
     {/if}
     {#if title || description}
-     <div class="mt-3 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" role="separator" aria-hidden="true"></div>
+     <div
+      class="mt-3 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
+      role="separator"
+      aria-hidden="true"
+     ></div>
     {/if}
    </div>
   {/if}
-  
-  <div class="animate-fade-in p-4" style="border-radius: 10px; background: rgba(255, 255, 255, 0.02);">
+
+  <div
+   class="animate-fade-in p-4"
+   style="border-radius: 10px; background: rgba(255, 255, 255, 0.02);"
+  >
    {@render children()}
   </div>
  </div>
