@@ -7,10 +7,10 @@ const STORAGE_KEY = 'ayako-favorite-servers';
 
 export const getFavoriteServers = (): Set<string> => {
  if (typeof window === 'undefined') return new Set();
- 
+
  const stored = localStorage.getItem(STORAGE_KEY);
  if (!stored) return new Set();
- 
+
  try {
   const parsed = JSON.parse(stored);
   return new Set(Array.isArray(parsed) ? parsed.map((f: FavoriteServer) => f.id) : []);
@@ -21,8 +21,8 @@ export const getFavoriteServers = (): Set<string> => {
 
 export const addFavoriteServer = (serverId: string): void => {
  const favorites = getFavoriteServersData();
- const existing = favorites.find(f => f.id === serverId);
- 
+ const existing = favorites.find((f) => f.id === serverId);
+
  if (!existing) {
   favorites.push({ id: serverId, addedAt: Date.now() });
   localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
@@ -31,7 +31,7 @@ export const addFavoriteServer = (serverId: string): void => {
 
 export const removeFavoriteServer = (serverId: string): void => {
  const favorites = getFavoriteServersData();
- const filtered = favorites.filter(f => f.id !== serverId);
+ const filtered = favorites.filter((f) => f.id !== serverId);
  localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
 };
 
@@ -52,10 +52,10 @@ export const toggleFavoriteServer = (serverId: string): boolean => {
 
 const getFavoriteServersData = (): FavoriteServer[] => {
  if (typeof window === 'undefined') return [];
- 
+
  const stored = localStorage.getItem(STORAGE_KEY);
  if (!stored) return [];
- 
+
  try {
   const parsed = JSON.parse(stored);
   return Array.isArray(parsed) ? parsed : [];
