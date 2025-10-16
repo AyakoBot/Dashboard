@@ -27,15 +27,15 @@ const user = prisma.user.findMany({ where: { active: true } });
 const user = prisma.user.findMany({
  where: {
   active: true,
-  name: 'someVeryLongNameThatExceedsTheLineLimit',
- },
+  name: 'someVeryLongNameThatExceedsTheLineLimit'
+ }
 });
 
 // ❌ Don't split short objects unnecessarily
 const user = prisma.user.findMany({
  where: {
-  active: true,
- },
+  active: true
+ }
 });
 ```
 
@@ -207,18 +207,14 @@ All UI components must comply with **WCAG 2.1 AA standards**. Accessibility is n
 
 ```svelte
 <!-- ✅ Semantic and accessible -->
-<button type="button" on:click={handleSubmit}>
- Submit Form
-</button>
+<button type="button" on:click={handleSubmit}> Submit Form </button>
 
 <nav aria-label="Main navigation">
  <a href="/dashboard">Dashboard</a>
 </nav>
 
 <!-- ❌ Not semantic -->
-<div class="button" on:click={handleSubmit}>
- Submit Form
-</div>
+<div class="button" on:click={handleSubmit}>Submit Form</div>
 ```
 
 ### ARIA Attributes
@@ -231,19 +227,11 @@ All UI components must comply with **WCAG 2.1 AA standards**. Accessibility is n
 
 ```svelte
 <!-- ✅ Proper ARIA usage -->
-<button 
- aria-label="Close notification" 
- aria-expanded={isOpen}
- on:click={closeNotification}
->
+<button aria-label="Close notification" aria-expanded={isOpen} on:click={closeNotification}>
  ×
 </button>
 
-<input 
- type="email"
- aria-describedby="email-help"
- aria-invalid={emailError ? 'true' : 'false'}
-/>
+<input type="email" aria-describedby="email-help" aria-invalid={emailError ? 'true' : 'false'} />
 <div id="email-help">Enter your work email address</div>
 
 <!-- ✅ Live regions for dynamic content -->
@@ -279,7 +267,7 @@ const trapFocusInModal = (modalElement: HTMLElement): void => {
  );
  const firstElement = focusableElements[0] as HTMLElement;
  const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
- 
+
  firstElement?.focus();
 };
 ```
@@ -330,9 +318,9 @@ const trapFocusInModal = (modalElement: HTMLElement): void => {
 <!-- ✅ Accessible form structure -->
 <fieldset>
  <legend>User Information</legend>
- 
+
  <label for="username">Username (required)</label>
- <input 
+ <input
   id="username"
   type="text"
   bind:value={username}
@@ -414,10 +402,10 @@ const trapFocusInModal = (modalElement: HTMLElement): void => {
 test('button is keyboard accessible', async () => {
  render(Button, { props: { onClick: mockFn } });
  const button = screen.getByRole('button');
- 
+
  await user.tab();
  expect(button).toHaveFocus();
- 
+
  await user.keyboard('{Enter}');
  expect(mockFn).toHaveBeenCalled();
 });

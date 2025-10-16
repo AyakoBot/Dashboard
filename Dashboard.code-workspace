@@ -1,14 +1,14 @@
 {
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "../../packages/Server"
-		},
-		{
-			"path": "../../prisma"
-		}
-	],
+ "folders": [
+  {
+   "path": "."
+  },
+  {
+   "path": "../../packages/Server"
+  },
+  {
+   "path": "../../prisma"
+  }
+ ],
  "settings": {}
 }
