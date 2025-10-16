@@ -21,12 +21,14 @@ import type { POSTResponse as POSTAuthGenerate } from '@ayako/server/src/routes/
 import type { GETResponse as GETSelfGuilds } from '@ayako/server/src/routes/v1/@me/guilds/+server';
 // Appeals
 import type { GETResponse as GETAppealsGuilds } from '@ayako/server/src/routes/v1/@me/appeals/guilds/+server';
-import type { GETResponse as GETGuildAppealQuestions } from '@ayako/server/src/routes/v1/guilds/[guildId]/settings/appeal-questions/+server';
 import type { GETResponse as GETPunishmentStatus } from '@ayako/server/src/routes/v1/punishments/[punishmentId]/status/+server';
 // Guilds
 import type { GETResponse as GETGuilds } from '@ayako/server/src/routes/v1/guilds/+server';
 import type { GETResponse as GETGuild } from '@ayako/server/src/routes/v1/guilds/[guildId]/+server';
+import type { GETResponse as GETGuildRoles } from '@ayako/server/src/routes/v1/guilds/[guildId]/roles/+server';
+import type { GETResponse as GETGuildChannels } from '@ayako/server/src/routes/v1/guilds/[guildId]/channels/+server';
 import type { GETResponse as GETGuildLeaderboard } from '@ayako/server/src/routes/v1/guilds/[guildId]/lb/+server';
+import type { GETResponse as GETGuildSetting } from '@ayako/server/src/routes/v1/guilds/[guildId]/settings/[setting]/+server';
 // Punishments
 import type { GETResponse as GETPunishments } from '@ayako/server/src/routes/v1/@me/punishments/+server';
 import type { GETResponse as GETPunishment } from '@ayako/server/src/routes/v1/punishments/[punishmentId]/+server';
@@ -39,17 +41,26 @@ import type { GETResponse as GETBotArtworks } from '@ayako/server/src/routes/v1/
 import type { GETResponse as GETBotContributers } from '@ayako/server/src/routes/v1/bot/contributers/+server';
 import type { GETResponse as GETBotFeatures } from '@ayako/server/src/routes/v1/bot/features/+server';
 import type { GETResponse as GETBotReviews } from '@ayako/server/src/routes/v1/bot/reviews/+server';
+import type { GETResponse as GETBotSettings } from '@ayako/server/src/routes/v1/bot/settings/+server';
 import type { GETResponse as GETBotStats } from '@ayako/server/src/routes/v1/bot/stats/+server';
 // URL Scan
-import type { PATCHResponse as PATCHUrlScan, PUTResponse as PUTUrlScan } from '@ayako/server/src/routes/v1/url-scan/+server';
+import type {
+ PATCHResponse as PATCHUrlScan,
+ PUTResponse as PUTUrlScan
+} from '@ayako/server/src/routes/v1/url-scan/+server';
 // RP
 import type { GETResponse as GETSelfRPBlocks } from '@ayako/server/src/routes/v1/@me/rp/+server';
 // Users
 import type { PUTResponse as PUTFindUsers } from '@ayako/server/src/routes/v1/users/find-many/+server';
 import type { GETResponse as GETSearchUsers } from '@ayako/server/src/routes/v1/users/search/+server';
 // Reminders
-import type { GETResponse as GETReminders, POSTResponse as POSTReminder } from '@ayako/server/src/routes/v1/@me/reminders/+server';
+import type {
+ GETResponse as GETReminders,
+ POSTResponse as POSTReminder
+} from '@ayako/server/src/routes/v1/@me/reminders/+server';
 import type { GETResponse as GETReminder } from '@ayako/server/src/routes/v1/@me/reminders/[reminderId]/+server';
+// EditorTypes
+import type { EditorTypes, SettingNames } from '@ayako/bot/src/Typings/Settings';
 
 type GETEndpointMap = {
  // ++++ Documented ++++
@@ -70,8 +81,10 @@ type GETEndpointMap = {
  // Guilds
  '/guilds': GETGuilds;
  '/guilds/:guildId': GETGuild;
+ '/guilds/:guildId/roles': GETGuildRoles;
+ '/guilds/:guildId/channels': GETGuildChannels;
  '/guilds/:guildId/lb': GETGuildLeaderboard;
- '/guilds/:guildId/settings/appeal-questions': GETGuildAppealQuestions;
+ '/guilds/:guildId/settings/:setting': GETGuildSetting<SettingNames>;
  '/guilds/:guildId/linked-roles/:settingsId/decoration': GETLinkedRolesDecoration;
 
  // QOTD
@@ -83,6 +96,7 @@ type GETEndpointMap = {
  '/bot/features': GETBotFeatures;
  '/bot/contributers': GETBotContributers;
  '/bot/artworks': GETBotArtworks;
+ '/bot/settings': GETBotSettings;
 
  // URL Scan
  '/url-scan/:scanId': never;
@@ -152,6 +166,7 @@ export type EndpointMap = {
 export type EndpointArgMap = {
  '/@me/short-urls/:id/uses': 'id';
  '/guilds/:guildId/settings/appeal-questions': 'guildId';
+ '/guilds/:guildId/settings/:setting': 'guildId' | 'setting';
  '/guilds/:guildId': 'guildId';
  '/guilds/:guildId/lb': 'guildId';
  '/guilds/:guildId/linked-roles/:settingsId/decoration': 'guildId' | 'settingsId';
@@ -159,4 +174,7 @@ export type EndpointArgMap = {
  '/punishments/:punishmentId/status': 'punishmentId';
  '/url-scan/:scanId': 'scanId';
  '/@me/reminders/:reminderId': 'reminderId';
+ '/bot/settings': never;
 } & Record<string, never>;
+
+export type { EditorTypes, GETBotSettings, GETGuildSetting };
