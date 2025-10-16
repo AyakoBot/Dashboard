@@ -24,12 +24,12 @@ export default ts.config(
    parser: ts.parser,
    parserOptions: {
     sourceType: 'module',
-    ecmaVersion: 2020,
+    ecmaVersion: 2020
    },
-   globals: { ...globals.node, ...globals.browser },
+   globals: { ...globals.node, ...globals.browser }
   },
   plugins: {
-   import: importPlugin,
+   import: importPlugin
   },
   rules: {
    // typescript-eslint strongly recommend that you do not use the no-undef lint rule on
@@ -54,8 +54,8 @@ export default ts.config(
     'error',
     {
      array: true,
-     object: true,
-    },
+     object: true
+    }
    ],
    quotes: ['error', 'single', { avoidEscape: true }],
    'max-len': [
@@ -67,8 +67,8 @@ export default ts.config(
      ignoreComments: false,
      ignoreRegExpLiterals: true,
      ignoreStrings: true,
-     ignoreTemplateLiterals: true,
-    },
+     ignoreTemplateLiterals: true
+    }
    ],
    'comma-style': ['error', 'last'],
    'comma-dangle': ['error', 'always-multiline'],
@@ -92,16 +92,16 @@ export default ts.config(
     'error',
     {
      newIsCap: true,
-     capIsNew: false,
-    },
+     capIsNew: false
+    }
    ],
    'no-underscore-dangle': [
     'error',
     {
      allowAfterThis: true,
      enforceInMethodNames: false,
-     allow: ['_'],
-    },
+     allow: ['_']
+    }
    ],
    semi: ['error', 'always'],
    'semi-spacing': ['error', { before: false, after: true }],
@@ -111,26 +111,26 @@ export default ts.config(
     'error',
     {
      min: 2,
-     exceptions: ['i', 'j', 'x', 'y', 'z', '_'],
-    },
+     exceptions: ['i', 'j', 'x', 'y', 'z', '_']
+    }
    ],
    'no-restricted-syntax': [
     'error',
     {
      selector: 'ForInStatement',
      message:
-      'for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.',
+      'for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.'
     },
     {
      selector: 'LabeledStatement',
      message:
-      'Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand.',
+      'Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand.'
     },
     {
      selector: 'WithStatement',
      message:
-      '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.',
-    },
+      '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.'
+    }
    ],
 
    // Import rules
@@ -144,9 +144,9 @@ export default ts.config(
      'newlines-between': 'always',
      alphabetize: {
       order: 'asc',
-      caseInsensitive: true,
-     },
-    },
+      caseInsensitive: true
+     }
+    }
    ],
    'import/newline-after-import': 'error',
    'import/extensions': [
@@ -156,8 +156,8 @@ export default ts.config(
      ts: 'never',
      tsx: 'never',
      js: 'always',
-     jsx: 'never',
-    },
+     jsx: 'never'
+    }
    ],
 
    // TypeScript specific overrides
@@ -167,58 +167,58 @@ export default ts.config(
     'error',
     {
      argsIgnorePattern: '^_',
-     varsIgnorePattern: '^_',
-    },
+     varsIgnorePattern: '^_'
+    }
    ],
    '@typescript-eslint/naming-convention': [
     'error',
     {
      selector: 'default',
-     format: ['camelCase'],
+     format: ['camelCase']
     },
     {
      selector: 'variable',
-     format: ['camelCase', 'UPPER_CASE'],
+     format: ['camelCase', 'UPPER_CASE']
     },
     {
      selector: 'parameter',
      format: ['camelCase'],
-     leadingUnderscore: 'allow',
+     leadingUnderscore: 'allow'
     },
     {
      selector: 'typeLike',
-     format: ['PascalCase'],
+     format: ['PascalCase']
     },
     {
      selector: 'import',
-     format: ['camelCase', 'PascalCase'],
+     format: ['camelCase', 'PascalCase']
     },
     {
      selector: 'method',
      format: ['camelCase'],
      leadingUnderscore: 'allow',
-     modifiers: ['private'],
+     modifiers: ['private']
     },
     {
      selector: 'objectLiteralProperty',
      format: null,
      filter: {
       regex: '^[A-Z].*-.*',
-      match: true,
-     },
+      match: true
+     }
     },
     {
      selector: 'objectLiteralProperty',
-     format: ['camelCase'],
+     format: ['camelCase']
     },
     {
      selector: 'objectLiteralMethod',
      format: null,
      filter: {
       regex: '^CallExpression$',
-      match: true,
-     },
-    },
+      match: true
+     }
+    }
    ],
 
    // Additional rules from CODE_RULES.md
@@ -228,8 +228,8 @@ export default ts.config(
    'no-undefined': 'off',
    '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
    'no-console': 'warn',
-   'no-debugger': 'error',
-  },
+   'no-debugger': 'error'
+  }
  },
  // Svelte-specific configuration
  {
@@ -238,8 +238,8 @@ export default ts.config(
    parser: svelteParser,
    parserOptions: {
     parser: ts.parser,
-    extraFileExtensions: ['.svelte'],
-   },
+    extraFileExtensions: ['.svelte']
+   }
   },
   rules: {
    // Disable rules that conflict with Svelte
@@ -253,7 +253,7 @@ export default ts.config(
    'svelte/valid-compile': 'error',
    'svelte/no-at-html-tags': 'error',
    'svelte/no-at-debug-tags': 'error',
-   'svelte/indent': ['error', { indent: 1, switchCase: 1 }],
-  },
- },
+   'svelte/indent': ['error', { indent: 1, switchCase: 1 }]
+  }
+ }
 );

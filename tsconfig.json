@@ -36,11 +36,7 @@
   ".svelte-kit/non-ambient.d.ts",
   ".svelte-kit/types/**/*.d.ts"
  ],
- "exclude": [
-  "node_modules",
-  "../../packages/**",
-  "../**"
- ],
+ "exclude": ["node_modules", "../../packages/**", "../**"],
  "references": [{ "path": "./tsconfig.node.json" }]
  // Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
  //

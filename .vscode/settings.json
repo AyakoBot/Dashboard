@@ -1,23 +1,23 @@
 {
-  "svelte.plugin.svelte.format.enable": false,
-  "svelte.plugin.svelte.defaultScriptLanguage": "ts",
-  "typescript.preferences.useAliasesForRenames": false,
-  "typescript.suggest.autoImports": true,
-  "[svelte]": {
-    "editor.defaultFormatter": "svelte.svelte-vscode",
-    "editor.formatOnSave": false
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": false
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": false
-  },
-  "editor.formatOnSave": false,
-  "prettier.documentSelectors": ["**/*.svelte"],
-  "prettier.trailingComma": "none",
-  "svelte.plugin.svelte.format.config.trailingComma": "none",
-  "svelte.plugin.prettier-vscode.trailingComma": "none"
+ "svelte.plugin.svelte.format.enable": false,
+ "svelte.plugin.svelte.defaultScriptLanguage": "ts",
+ "typescript.preferences.useAliasesForRenames": false,
+ "typescript.suggest.autoImports": true,
+ "[svelte]": {
+  "editor.defaultFormatter": "svelte.svelte-vscode",
+  "editor.formatOnSave": false
+ },
+ "[javascript]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": false
+ },
+ "[typescript]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": false
+ },
+ "editor.formatOnSave": false,
+ "prettier.documentSelectors": ["**/*.svelte"],
+ "prettier.trailingComma": "none",
+ "svelte.plugin.svelte.format.config.trailingComma": "none",
+ "svelte.plugin.prettier-vscode.trailingComma": "none"
 }
