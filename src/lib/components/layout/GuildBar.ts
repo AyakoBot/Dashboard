@@ -13,9 +13,9 @@ export const updateDotPos = (dotContainer: HTMLDivElement, mouseY: number) => {
  dotContainer.style.top = `${dotContainer.getBoundingClientRect().top}px`;
 
  dotContainer.animate([{ top: dotContainer.style.top }, { top: `${mouseY + offset}px` }], {
- duration: 200,
- easing,
- fill: 'forwards',
+  duration: 200,
+  easing,
+  fill: 'forwards'
  });
 };
 
@@ -24,14 +24,14 @@ export const showDot = (dotContainer: HTMLDivElement, y: number) => {
  if (dotContainer.style.top === `${y + offset}px` && !dotFirstAppear) return;
 
  dotContainer.animate(
- [
-  {
-  top: dotFirstAppear ? `${y + offset}px` : dotContainer.style.top,
-  left: dotFirstAppear ? '-8px' : '-4px',
-  },
-  { top: `${y + offset}px`, left: '-4px' },
- ],
- { duration: 200, easing, fill: 'forwards' },
+  [
+   {
+    top: dotFirstAppear ? `${y + offset}px` : dotContainer.style.top,
+    left: dotFirstAppear ? '-8px' : '-4px'
+   },
+   { top: `${y + offset}px`, left: '-4px' }
+  ],
+  { duration: 200, easing, fill: 'forwards' }
  );
 
  dotFirstAppear = false;
@@ -44,9 +44,9 @@ export const hideDot = (dotContainer: HTMLDivElement) => {
  dotFirstAppear = true;
 
  dotContainer.animate([{ left: '-4px' }, { left: '-8px' }], {
- duration: 200,
- easing,
- fill: 'forwards',
+  duration: 200,
+  easing,
+  fill: 'forwards'
  });
 
  dotContainer.style.left = '-8px';
@@ -55,7 +55,7 @@ export const hideDot = (dotContainer: HTMLDivElement) => {
 export const showName = (
  event: { y: number },
  dotContainer: HTMLDivElement,
- nameContainer: HTMLDivElement,
+ nameContainer: HTMLDivElement
 ) => {
  showDot(dotContainer, event.y);
  if (!nameContainer) return;
