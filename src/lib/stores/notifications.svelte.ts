@@ -7,8 +7,8 @@ export interface Notification {
  message?: string;
  duration?: number;
  action?: {
- label: string;
- onClick: () => void;
+  label: string;
+  onClick: () => void;
  };
 }
 
@@ -16,31 +16,31 @@ class NotificationStore {
  notifications = $state<Notification[]>([]);
 
  addNotification = (notification: Omit<Notification, 'id'>) => {
- const id = Math.random().toString(36).substring(2, 9);
- const newNotification: Notification = {
-  id,
-  duration: 5000,
-  ...notification,
- };
+  const id = Math.random().toString(36).substring(2, 9);
+  const newNotification: Notification = {
+   id,
+   duration: 5000,
+   ...notification
+  };
 
- this.notifications = [...this.notifications, newNotification];
+  this.notifications = [...this.notifications, newNotification];
 
- // Auto-remove after duration
- if (newNotification.duration) {
-  setTimeout(() => {
-  this.removeNotification(id);
-  }, newNotification.duration);
- }
+  // Auto-remove after duration
+  if (newNotification.duration) {
+   setTimeout(() => {
+    this.removeNotification(id);
+   }, newNotification.duration);
+  }
 
- return id;
+  return id;
  };
 
  removeNotification = (id: string) => {
- this.notifications = this.notifications.filter((n) => n.id !== id);
+  this.notifications = this.notifications.filter((n) => n.id !== id);
  };
 
  getNotifications = () => {
- return this.notifications;
+  return this.notifications;
  };
 }
 
