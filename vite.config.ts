@@ -6,6 +6,9 @@ import extractorSvelte from '@unocss/extractor-svelte';
 import UnoCSS from '@unocss/svelte-scoped/vite';
 
 export default defineConfig({
-	server: { allowedHosts: ['dev.animekos.org'] },
-	plugins: [UnoCSS({ injectReset: '' }), sveltekit(), extractorSvelte()],
+ server: { allowedHosts: ['dev.animekos.org'] },
+ plugins: [UnoCSS({ injectReset: '' }), sveltekit(), extractorSvelte()],
+ optimizeDeps: {
+  include: ['string-similarity', 'marked']
+ }
 });
